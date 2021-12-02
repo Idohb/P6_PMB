@@ -13,18 +13,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Entity
-@Table
+@Table(value = "person")
 public class PersonEntity {
 
-    //see fir this warning JPA and @Data power consumption
+    //see for this warning JPA and @Data power consumption
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPerson;
 
-    @Column
+    @Column(name="FirstName")
     private String firstName;
 
-    @Column
+    @Column(name="LastName")
     private String lastName;
 }
+
