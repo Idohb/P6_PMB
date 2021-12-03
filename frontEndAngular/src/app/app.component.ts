@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontEndAngular';
+  //title = 'Pay My Buddy';
+  isAuth = false;
+  loginName : string = "loginNameFromApp";
+
+  constructor() {
+    setTimeout(
+      () => {
+        this.isAuth = true;
+      },4000
+    );
+  }
+
+  onTestConsole() {
+    console.log('test');
+  }
 }
