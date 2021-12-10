@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
     private final LoginService loginService;
 
@@ -26,7 +27,7 @@ public class LoginController {
         try {
             return ResponseEntity.ok(loginService.getLogins());
         } catch (NoSuchElementException e) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
     }
 
