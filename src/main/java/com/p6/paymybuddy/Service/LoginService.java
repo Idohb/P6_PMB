@@ -8,7 +8,9 @@ import com.p6.paymybuddy.Service.Data.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Service
@@ -69,4 +71,20 @@ public class LoginService {
             loginEntity.setPassword(loginRequest.getPassword());
 
     }
+
+
+//    private Map<String, Object> matchPersonInfoByFirstnameAndLastname(List<LoginEntity> loginEntityList) {
+//        Map<String, Object> map = new HashMap<>();
+//
+//        for (LoginEntity le : loginEntityList) {
+//
+//        }
+//
+//        return map;
+//    }
+
+    public List<Login> searchEmailAndPassword(String email, String password) {
+        return loginConverter.mapperLogin(loginRepository.findByEmailAndPassword(email, password));
+    }
+
 }

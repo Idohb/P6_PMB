@@ -1,25 +1,24 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
-  <div style="height:auto;min-height:auto; width: 450px; " class="list-group-item">
-    <form>
+  <div style="height:auto;min-height:auto; width: 600px; " class="list-group-item">
+    <form #editForm="ngForm">
 
       <div class="form-group">
         <h4>Login :</h4>
-        <input type="text"  id="email" placeholder="Email" class="form-control">
+        <input type="text" [(ngModel)]="loginForm.email" name="email" id="email" placeholder="Email" class="form-control">
       </div>
       <div class="form-group">
         <h4>Password :</h4>
-        <input type="password" id="password" placeholder="Password" class="form-control">
+        <input type="password" [(ngModel)]="loginForm.password" name="password" id="password" placeholder="Password" class="form-control">
       </div>
 
       <button class="btn btn-success"
-              [disabled]="!isAuthLogin"
-              (click)="onToggleLoginsCheck()"> Button Green</button>
+              (click)="onToggleLoginsCheck(editForm.value)"> Button Green</button>
 
     </form>
 
     <!-- This part show if the form is correct -->
-    <div *ngIf="loginsArrayFromApp[0].status === 'true'">
-      <h4> Congratulation !</h4>
+    <div *ngIf="loginStatus === 'true'">
+      <h4> Congratulation ! The Login and Password are correct</h4>
     </div>
   </div>
 </div>

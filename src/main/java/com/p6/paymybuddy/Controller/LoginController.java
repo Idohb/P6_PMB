@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -71,6 +72,19 @@ public class LoginController {
     public ResponseEntity<?> deleteLogins() {
         loginService.deleteLogins();
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("login")
+    public ResponseEntity<List<Login>> searchEmailAndPassword(@RequestParam("email") final String email, @RequestParam("password") final String password) {
+        try {
+            List<Login> le = loginService.searchEmailAndPassword(email, password);
+            System.out.println(le.get(0).getEmail());
+            System.out.println(le.get(0).getPassword());
+            return ResponseEntity.ok(le);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

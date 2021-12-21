@@ -21,55 +21,45 @@ export class LoginComponent implements OnInit {
   loginTitle : string = "Login";
   @Input() loginStatus: string = "false";
 
-  @Input() loginsArrayFromApp = [
-    {
-      email: "",
-      password:"",
-      status: ""
-    }
-  ] ;
-
   @Input() isAuthLogin : boolean = false;
 
   constructor(private loginService: LoginService) {}
 
-  // public getLogin():void {
-  //   this.loginService.getLogin().subscribe(
-  //     (response:Login[]) => {
-  //       this.loginResponse = response;
-  //     },
-  //     (error:HttpErrorResponse) => {
-  //       alert(error.message);
-  //     }
-  //   );
-  // }
-
   ngOnInit(): void {
-    this.loginService.getLogin().subscribe(data => {
-      this.loginResponse = data;
-    });
+
   }
 
   /**
    * methods test
    */
   onToggleLoginsStatus() {
-    if (this.loginsArrayFromApp[0].status === "false")
-      this.loginsArrayFromApp[0].status = "true";
+    if (this.loginStatus === "false")
+      this.loginStatus = "true";
     else
-      this.loginsArrayFromApp[0].status = "false";
-    // console.log(this.loginsArrayFromApp[0].status)
+      this.loginStatus = "false";
   }
 
-  onToggleLoginsCheck() {
-    // @ts-ignore
-    console.log(this.loginResponse[0].email)
-    // @ts-ignore
-    console.log(this.loginResponse[0].password)
+  /**
+   * method to connect
+   * rei
+   * @param login
+   */
+  onToggleLoginsCheck(login : Login) {
+    this.loginService.getLogin(login).subscribe(
+      (data) => {
+        if (data.email == "bodivann@mail.com")
+          console.log("true");
+    },
+      () => {
+      this.loginStatus = "false";
+        console.log("Nope");
+    }
+    );
+
   }
 
   getStatus() {
-    return this.loginsArrayFromApp[0].status;
+    return this.loginStatus;
   }
 
 }

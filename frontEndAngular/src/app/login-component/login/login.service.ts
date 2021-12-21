@@ -12,7 +12,8 @@ export class LoginService {
 
   constructor(private http:HttpClient) { }
 
-  public getLogin(): Observable<Login[]> {
-    return this.http.get<Login[]>("http://localhost:8080/logins")
+  public getLogin(login : Login): Observable<Login> {
+    return this.http.get<Login>("http://localhost:8080/login?email=" + login.email + "&password=" + login.password);
   }
+
 }
