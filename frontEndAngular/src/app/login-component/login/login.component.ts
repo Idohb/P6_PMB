@@ -47,12 +47,13 @@ export class LoginComponent implements OnInit {
   onToggleLoginsCheck(login : Login) {
     this.loginService.getLogin(login).subscribe(
       (data) => {
-        if (data.email == "bodivann@mail.com")
-          console.log("true");
+
+        // @ts-ignore
+        if (data[0].email == login.email && data[0].password == login.password)
+          this.loginStatus = "true";
     },
       () => {
       this.loginStatus = "false";
-        console.log("Nope");
     }
     );
 
