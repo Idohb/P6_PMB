@@ -76,12 +76,9 @@ public class LoginController {
 
 
     @GetMapping("login")
-    public ResponseEntity<List<Login>> searchEmailAndPassword(@RequestParam("email") final String email, @RequestParam("password") final String password) {
+    public ResponseEntity<Login> searchEmailAndPassword(@RequestParam("email") final String email, @RequestParam("password") final String password) {
         try {
-            List<Login> le = loginService.searchEmailAndPassword(email, password);
-            System.out.println(le.get(0).getEmail());
-            System.out.println(le.get(0).getPassword());
-            return ResponseEntity.ok(le);
+            return ResponseEntity.ok(loginService.searchEmailAndPassword(email, password));
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

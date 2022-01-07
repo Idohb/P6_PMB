@@ -83,8 +83,8 @@ public class LoginService {
 //        return map;
 //    }
 
-    public List<Login> searchEmailAndPassword(String email, String password) {
-        return loginConverter.mapperLogin(loginRepository.findByEmailAndPassword(email, password));
+    public Login searchEmailAndPassword(String email, String password) {
+        return loginConverter.mapperLogin(loginRepository.findByEmailAndPassword(email, password).orElseThrow( () -> new NoSuchElementException("") ));
     }
 
 }

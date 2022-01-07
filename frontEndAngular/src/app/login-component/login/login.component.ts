@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Login} from "./login";
 import {LoginService} from "./login.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -18,44 +19,34 @@ export class LoginComponent implements OnInit {
   };
 
   @Input() loginName : string = "loginNameFromLoginComponent";
-  loginTitle : string = "Login";
   @Input() loginStatus: string = "false";
+  @Input() id : number = 0;
 
-  @Input() isAuthLogin : boolean = false;
-
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router : Router) {}
 
   ngOnInit(): void {
-
+    this.loginStatus = "false";
   }
 
   /**
-   * methods test
-   */
-  onToggleLoginsStatus() {
-    if (this.loginStatus === "false")
-      this.loginStatus = "true";
-    else
-      this.loginStatus = "false";
-  }
-
-  /**
-   * method to connect
-   * rei
+   *
    * @param login
    */
   onToggleLoginsCheck(login : Login) {
-    this.loginService.getLogin(login).subscribe(
-      (data) => {
-
-        // @ts-ignore
-        if (data[0].email == login.email && data[0].password == login.password)
+    this.loginService.getLogin(login).subscribe( {
+      next: (data) => {
+        console.log("ici");
+        if (data.email == login.email && data.password == login.password) {
           this.loginStatus = "true";
+          this.router.navigate(['person/'+ data.idLogin]);
+        }
     },
-      () => {
+      error :  () => {
       this.loginStatus = "false";
-    }
-    );
+        this.router.navigate(['login']);
+    },
+      complete: () => console.info('complete')
+    });
 
   }
 
