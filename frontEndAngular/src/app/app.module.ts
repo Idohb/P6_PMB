@@ -6,14 +6,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login-component/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {RouterModule, Routes} from "@angular/router";
+import { RouterModule, Routes} from "@angular/router";
 import { PersonComponent } from './person/person.component';
-import {LoginService} from "./login-component/login/login.service";
 import { TransactionInternalComponent } from './transaction-internal/transaction-internal.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'person', component: LoginComponent },
+  { path: 'transaction-internal', component:TransactionInternalComponent},
   { path: 'person/:id', component: PersonComponent },
   { path: '', component: LoginComponent }
 ];

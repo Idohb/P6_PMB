@@ -1,10 +1,6 @@
 package com.p6.paymybuddy.Model.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,27 +9,29 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(value = "login")
+@Table(name = "transaction_internal")
 public class TransactionInternalEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTransactionInternal;
 
-    @Column(name="Description")
+    @Column(name="description")
     private String description;
 
-    @Column(name="Amount")
+    @Column(name="amount")
     private String amount;
 
-    @Column(name="TimeTransactionInternal")
+    @Column(name="time_transaction")
     private String timeTransactionInternal;
 
-    @Column(name="Crediteur")
-    private Long Crediteur;
+    @ManyToOne
+    @JoinColumn(name="crediteur")
+    private PersonEntity crediteur;
 
-    @Column(name="Debiteur")
-    private Long debiteur;
+    @ManyToOne
+    @JoinColumn(name="debiteur")
+    private PersonEntity debiteur;
 }
 //
 //

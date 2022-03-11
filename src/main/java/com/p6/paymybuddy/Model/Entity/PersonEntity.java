@@ -1,19 +1,16 @@
 package com.p6.paymybuddy.Model.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(value = "person")
+@Table(name="person")
 public class PersonEntity {
 
     //see for this warning JPA and @Data power consumption
@@ -22,10 +19,19 @@ public class PersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPerson;
 
-    @Column(name="FirstName")
+    @Column(name="first_name")
     private String firstName;
 
-    @Column(name="LastName")
+    @Column(name="last_name")
     private String lastName;
+
+    @OneToMany(mappedBy = "debiteur")
+    private List<TransactionInternalEntity> debiteur;
+
+    @OneToMany(mappedBy = "crediteur")
+    private List<TransactionInternalEntity> crediteur;
+
+
+
 }
 

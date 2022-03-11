@@ -2,12 +2,17 @@ package com.p6.paymybuddy.Service;
 
 import com.p6.paymybuddy.Controller.Dto.TransactionInternal.TransactionInternalRequest;
 import com.p6.paymybuddy.Mapper.TransactionInternalConverter;
+import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
+import com.p6.paymybuddy.Model.Repository.PersonRepository;
 import com.p6.paymybuddy.Model.Repository.TransactionInternalRepository;
+import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +28,9 @@ public class TransactionInternalService {
     @Autowired
     private TransactionInternalRepository transactionInternalRepository;
 
+    @Autowired
+    private PersonRepository personRepository;
+
     public TransactionInternalService() {
     }
 
@@ -35,14 +43,25 @@ public class TransactionInternalService {
         return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
     }
 
+    public List<TransactionInternal> getTransactionInternalByCrediteur(final Long id) {
+        List<TransactionInternalEntity> transactionInternalEntity = transactionInternalRepository.findByCrediteurIdPerson(id).orElseThrow(() -> new NoSuchElementException("Id " + id + " not found"));
+        return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
+    }
 
     public TransactionInternal addTransactionInternal(TransactionInternalRequest transactionInternalRequest) {
+        List<PersonEntity> personEntities = personRepository.findAll();
+        LocalDate date = LocalDate.now();
+
+        PersonEntity peCrediteur = personRepository.findById(transactionInternalRequest.getCrediteur()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionInternalRequest.getCrediteur() + " not found"));
+        PersonEntity peDebiteur  = personRepository.findById(transactionInternalRequest.getDebiteur()).orElseThrow(()  -> new NoSuchElementException("Id Debiteur : "  + transactionInternalRequest.getDebiteur()  + " not found"));
+
         TransactionInternalEntity transactionInternalEntity = new TransactionInternalEntity(0L,
                 transactionInternalRequest.getDescription(),
                 transactionInternalRequest.getAmount(),
-                transactionInternalRequest.getTimeTransaction(),
-                transactionInternalRequest.getCrediteur(),
-                transactionInternalRequest.getDebiteur());
+                date.toString(),
+                peCrediteur,
+                peDebiteur);
+
         transactionInternalEntity = transactionInternalRepository.save(transactionInternalEntity);
         return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
 
@@ -75,25 +94,22 @@ public class TransactionInternalService {
 
         if (transactionInternalRequest.getTimeTransaction() != null)
             transactionInternalEntity.setTimeTransactionInternal(transactionInternalRequest.getTimeTransaction());
-
-        if (transactionInternalRequest.getCrediteur() != null)
-            transactionInternalEntity.setCrediteur(transactionInternalRequest.getCrediteur());
-
-        if (transactionInternalRequest.getDebiteur() != null)
-            transactionInternalEntity.setDebiteur(transactionInternalRequest.getDebiteur());
-
     }
 
 
-//    private Map<String, Object> matchPersonInfoByFirstnameAndLastname(List<TransactionInternalEntity> transactionInternalEntityList) {
-//        Map<String, Object> map = new HashMap<>();
+//    @Transactional
+//    public void doTransaction(Long idCrediteur, Long idDebiteur, double amount) {
+//        PersonEntity credit = personRepository.findById(idCrediteur).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + id + " not found"));
+//        PersonEntity debit = personRepository.findById(idDebiteur).orElseThrow(() -> new NoSuchElementException("Id Debiteur : " + id + " not found"));
+//        double commission = amount * 0.05;
 //
-//        for (TransactionInternalEntity le : transactionInternalEntityList) {
-//
-//        }
-//
-//        return map;
+//        credit.setAmount(credit.getAmount() + amount);
+//        debit.setAmount(debit.getAmount() - amount - commission);
+//        personRepository.save(credit);
+//        personRepository.save(debit);
+//        this.addTransaction(credit, debit, amount, commission);
 //    }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.p6.paymybuddy.Controller;
 
 
 import com.p6.paymybuddy.Controller.Dto.TransactionInternal.TransactionInternalRequest;
+import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import com.p6.paymybuddy.Service.TransactionInternalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,15 @@ public class TransactionInternalController {
     public ResponseEntity<TransactionInternal> getTransactionInternal(@PathVariable("id") final Long id) {
         try {
             return ResponseEntity.ok(transactionInternalService.getTransactionInternal(id));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("transactionInternalbyCrediteur/{id}")
+    public ResponseEntity<List<TransactionInternal>> getTransactionInternalByCrediteur(@PathVariable("id") final Long id) {
+        try {
+            return ResponseEntity.ok(transactionInternalService.getTransactionInternalByCrediteur(id));
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

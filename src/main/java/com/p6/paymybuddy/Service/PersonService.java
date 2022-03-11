@@ -36,7 +36,8 @@ public class PersonService {
     public Person addPerson(PersonRequest personRequest) {
         PersonEntity personEntity = new PersonEntity(0L,
                 personRequest.getFirstName(),
-                personRequest.getLastName());
+                personRequest.getLastName(),
+                null,null);
         personEntity = personRepository.save(personEntity);
         return personConverter.mapperPerson(personEntity);
 
@@ -68,5 +69,24 @@ public class PersonService {
             personEntity.setLastName(personRequest.getLastName());
 
     }
+
+    //     public void attributeCrediteurToPerson(List<PersonEntity> globalPersonEntityList, List<CrediteurEntity> globalCrediteurEntityList) {
+//
+//        for (FireStationEntity fireStationEntity : globalFireStationEntityList) {
+//
+//            String addressFireStation = fireStationEntity.getAddress();
+//            List<PersonEntity> personEntityList = new ArrayList<>();
+//
+//            for (PersonEntity personEntity : globalPersonEntityList) {
+//                if (personEntity.getAddress().equals(addressFireStation)) {
+//                    personEntityList.add(personEntity);
+//                }
+//            }
+//
+//            fireStationEntity.setPersonFireStation(personEntityList);
+//
+//        }
+//
+//    }
 
 }

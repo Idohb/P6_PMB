@@ -1,1 +1,37 @@
-<p>person works!</p>
+<!--<p>person works!</p>-->
+<header>
+
+  <a class="LogoPersonPage" routerLink="person">
+    <img src="logoPayMyBuddy.png">
+  </a>
+
+  <nav id="test" >
+    <ul>
+      <!-- est ce que c'est possible de relier une balise de lien à un routing angular ? -->
+      <a routerLink="person">Home</a>
+      <a routerLink="transaction-internal">Transfer</a>
+      <a routerLink="#">Profile</a>
+      <a routerLink="#">Contact</a>
+      <a routerLink="#">Log off</a>
+    </ul>
+  </nav>
+
+</header>
+<!--<router-outlet></router-outlet>-->
+
+<div class="pathHeaderContainer">
+  <!-- code current Path -->
+</div>
+
+<section>
+  <!-- <app-transaction-external></app-transaction-external> -->
+</section>
+
+<section>
+  <app-transaction-internal></app-transaction-internal>
+</section>
+
+
+
+
+

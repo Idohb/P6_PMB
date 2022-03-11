@@ -20,7 +20,7 @@ public class PayMyBuddyApplication {
 
     /*
     *  L'annotation Transactional permet de s'assurer les données sont enregistrés en cache pour que les méthodes save
-    *  Ainsi, il exécutrera tout en même temps.
+    *  Ainsi, il exécutera tout en même temps.
     *
     * Un bon SQL est un SQL que tu peux exécuter plusieurs fois.
     */

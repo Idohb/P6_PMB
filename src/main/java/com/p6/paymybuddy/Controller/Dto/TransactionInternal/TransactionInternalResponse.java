@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class TransactionInternalResponse {
+    private Long idTransactionInternal;
     private String description;
     private String amount;
     private String timeTransaction;
-    private Long crediteur;
-    private Long debiteur;
+    private String nomDebiteur;
+    private String nomCrediteur; // ceci pour éviter le stackoverflow
 }

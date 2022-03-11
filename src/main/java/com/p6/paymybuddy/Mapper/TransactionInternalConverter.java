@@ -12,13 +12,22 @@ import java.util.stream.Collectors;
 @Component
 public class TransactionInternalConverter {
     public TransactionInternal mapperTransactionInternal(TransactionInternalEntity transactionInternalEntity) {
+        PersonConverter personConverter = new PersonConverter();
+
         TransactionInternal transactionInternal = new TransactionInternal();
         transactionInternal.setIdTransactionInternal(transactionInternalEntity.getIdTransactionInternal());
         transactionInternal.setDescription(transactionInternalEntity.getDescription());
         transactionInternal.setAmount(transactionInternalEntity.getAmount());
         transactionInternal.setTimeTransaction(transactionInternalEntity.getTimeTransactionInternal());
-        transactionInternal.setCrediteur(transactionInternalEntity.getCrediteur());
-        transactionInternal.setDebiteur(transactionInternalEntity.getDebiteur());
+
+        if (transactionInternalEntity.getCrediteur() != null) {
+            transactionInternal.setCrediteur(personConverter.mapperPerson(transactionInternalEntity.getCrediteur()));
+        }
+
+        if (transactionInternalEntity.getDebiteur() != null) {
+            transactionInternal.setDebiteur(personConverter.mapperPerson(transactionInternalEntity.getDebiteur()));
+        }
+
         return transactionInternal;
     }
 
