@@ -1,8 +1,10 @@
+import {Person} from "../person/Person";
+
 export interface TransactionInternal {
   idTransaction: number;
-  Description: string;
-  Amount: string;
-  TimeTransaction: string;
-  Crediteur : string;
-  Debiteur: string;
+  description: string;
+  amount: string;
+  timeTransaction: string;
+  crediteur : Person ;
+  debiteur: Person;
 }

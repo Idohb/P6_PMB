@@ -31,6 +31,21 @@ public class PersonEntity {
     @OneToMany(mappedBy = "crediteur")
     private List<TransactionInternalEntity> crediteur;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "login_id")
+    private LoginEntity login;
+
+    @ManyToMany
+    @JoinTable(
+            name="social_networks",
+            joinColumns = @JoinColumn(name="is_related_to"),
+            inverseJoinColumns = @JoinColumn(name="this_person")
+    )
+    private List<PersonEntity> friends;
+
+    public void addFriend(PersonEntity personEntity) {
+        friends.add(personEntity);
+    }
 
 
 }

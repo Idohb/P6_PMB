@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     email: string = "";
     idLogin: number = 0;
     password: string = "";
+    user_id:number = 0;
   };
 
   @Input() loginName : string = "loginNameFromLoginComponent";
@@ -35,9 +36,10 @@ export class LoginComponent implements OnInit {
   onToggleLoginsCheck(login : Login) {
     this.loginService.getLogin(login).subscribe( {
       next: (data) => {
-        console.log("ici");
+        console.log("ici " + data.idLogin);
         if (data.email == login.email && data.password == login.password) {
           this.loginStatus = "true";
+          this.loginService.setUserId(data.idLogin);
           this.router.navigate(['person/'+ data.idLogin]);
         }
     },

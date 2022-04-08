@@ -2,12 +2,14 @@ package com.p6.paymybuddy.Service;
 
 import com.p6.paymybuddy.Controller.Dto.Person.PersonRequest;
 import com.p6.paymybuddy.Mapper.PersonConverter;
+import com.p6.paymybuddy.Model.Entity.LoginEntity;
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Model.Repository.PersonRepository;
 import com.p6.paymybuddy.Service.Data.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -37,7 +39,7 @@ public class PersonService {
         PersonEntity personEntity = new PersonEntity(0L,
                 personRequest.getFirstName(),
                 personRequest.getLastName(),
-                null,null);
+                new ArrayList<>(),new ArrayList<>(),new LoginEntity(0L,personRequest.getUsername(),personRequest.getPassword()),new ArrayList<>());
         personEntity = personRepository.save(personEntity);
         return personConverter.mapperPerson(personEntity);
 

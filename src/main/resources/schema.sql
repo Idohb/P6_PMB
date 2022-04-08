@@ -63,6 +63,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mydb`.`Login` ;
 
+--   `user_id` INT NOT NULL,
 CREATE TABLE IF NOT EXISTS `mydb`.`Login` (
   `id_login` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(100) NOT NULL,
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Login` (
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id_login`),
   UNIQUE INDEX `email_unique_id` (`email` ASC) INVISIBLE,
-  INDEX `fk_user_id_person_id_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_user_id_person_id_idx` (`id_login` ASC) VISIBLE,
   CONSTRAINT `fk_user_id_person_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `mydb`.`Person` (`id_person`)
@@ -124,11 +125,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mydb`.`Social_Networks` ;
 
+--   `id_commission` INT NOT NULL,
+--   PRIMARY KEY (`id_commission`),
 CREATE TABLE IF NOT EXISTS `mydb`.`Social_Networks` (
-  `id_commission` INT NOT NULL,
   `this_person` INT NOT NULL,
   `is_related_to` INT NOT NULL,
-  PRIMARY KEY (`id_commission`),
   INDEX `fk_this_person_id_idx` (`this_person` ASC) VISIBLE,
   INDEX `fk_is_related_to_id_idx` (`is_related_to` ASC) VISIBLE,
   CONSTRAINT `fk_this_person_id`

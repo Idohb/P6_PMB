@@ -9,11 +9,17 @@ import {environment} from "../../../environments/environment";
 })
 export class LoginService {
   private apiServerUrl = environment.apiBaseUrl;
-
+  private userId : number = 0;
   constructor(private http:HttpClient) { }
 
   public getLogin(login : Login): Observable<Login> {
     return this.http.get<Login>("http://localhost:8080/login?email=" + login.email + "&password=" + login.password);
   }
+  public setUserId(id : number) {
+    this.userId = id;
+  }
 
+  public getUserId() {
+    return this.userId;
+  }
 }

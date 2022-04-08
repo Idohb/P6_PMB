@@ -1,13 +1,63 @@
-<table>
-  <thead>
-    <tr>
-      <th id="Connections"> Connections </th>
-      <th id="Description"> Description </th>
-      <th id="Amount">      Amount       </th>
-    </tr>
-  </thead>
-  <div class="transactionInternal">
+<!--<table class="history">-->
+<!--  <thead>-->
+<!--    <tr id="TabHeader">-->
+<!--      <th id="Connections"> Connections </th>-->
+<!--      <th id="Description"> Description </th>-->
+<!--      <th id="Amount">      Amount       </th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tr id="TransactionConnection" *ngFor="let transaction of transactionInternalResponse">-->
+<!--    <th>{{transaction.debiteur.firstName}}</th>-->
+<!--    <th>{{transaction.description}}</th>-->
+<!--    <th>{{transaction.amount}}</th>-->
+<!--  </tr>-->
+<!--</table>-->
 
+
+<div class="container border col-6">
+  <div class="row">
+    <div class="col-3">Send Money</div>
+    <div class="col-4 offset-5"><button type="button" class="btn btn-primary">Add Connection</button></div>
   </div>
-</table>
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Select a Connection</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="col-3">
+      <input type="number" />
+    </div>
+    <div class="col-2 offset-1"><button type="button" class="btn btn-primary">Pay</button></div>
+  </div>
+</div>
+
+<div class="container justify-content-center col-6">
+  <div class="row justify-content-center">
+<!--    <div class="col-md-8 mx-auto">-->
+    <div class="col-auto">
+      <table class="table bg-white table-bordered">
+        <thead>
+        <tr>
+          <th > Connections </th>
+          <th > Description </th>
+          <th > Amount       </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr id="TransactionConnection" *ngFor="let transaction of transactionInternalResponse">
+            <th>{{transaction.debiteur.firstName}}</th>
+            <th>{{transaction.description}}</th>
+            <th>{{transaction.amount}}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
 

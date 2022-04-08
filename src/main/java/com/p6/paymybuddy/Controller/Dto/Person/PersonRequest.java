@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class PersonRequest {
     private String firstName;
     private String lastName;
+    private String username;
+    private String password;
 }

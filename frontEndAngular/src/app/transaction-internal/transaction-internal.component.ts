@@ -11,14 +11,7 @@ import {Router} from "@angular/router";
 export class TransactionInternalComponent implements OnInit {
 
   public transactionInternalResponse: TransactionInternal[] = [];
-  public transactionInternals: TransactionInternal = new class implements TransactionInternal {
-    idTransaction: number = 0;
-    Description: string = "";
-    Amount: string = "";
-    TimeTransaction: string = "";
-    Crediteur : string = "";
-    Debiteur: string = "";
-  };
+
 
 
 
@@ -27,7 +20,7 @@ export class TransactionInternalComponent implements OnInit {
   ngOnInit(): void {
     this.transactionInternalService.getTransactionInternal().subscribe( {
       next: (data) => {
-        console.log(data.Description);
+        this.transactionInternalResponse = data;
       },
       error : () => {
         console.info('error transaction')

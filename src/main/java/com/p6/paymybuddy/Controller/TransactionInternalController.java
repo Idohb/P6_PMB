@@ -5,6 +5,7 @@ import com.p6.paymybuddy.Controller.Dto.TransactionInternal.TransactionInternalR
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import com.p6.paymybuddy.Service.TransactionInternalService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@Slf4j
 public class TransactionInternalController {
     private final TransactionInternalService transactionInternalService;
 
@@ -42,11 +44,13 @@ public class TransactionInternalController {
         }
     }
 
-    @GetMapping("transactionInternalbyCrediteur/{id}")
+    @GetMapping("transactionInternalByCrediteur/{id}")
     public ResponseEntity<List<TransactionInternal>> getTransactionInternalByCrediteur(@PathVariable("id") final Long id) {
         try {
+            log.info("ok");
             return ResponseEntity.ok(transactionInternalService.getTransactionInternalByCrediteur(id));
         } catch (NoSuchElementException e) {
+            log.info("error");
             return ResponseEntity.notFound().build();
         }
     }
