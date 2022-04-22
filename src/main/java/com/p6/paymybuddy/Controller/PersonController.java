@@ -1,6 +1,7 @@
 package com.p6.paymybuddy.Controller;
 
 import com.p6.paymybuddy.Controller.Dto.Person.PersonRequest;
+import com.p6.paymybuddy.Service.Data.Login;
 import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,23 @@ public class PersonController {
         personService.deletePersons();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("addFriends")
+    public ResponseEntity<Long> addFriends(@RequestParam("crediteur") final Long crediteur, @RequestParam("debiteur") final Long debiteur) {
+        try {
+            return ResponseEntity.ok(personService.setFriends(crediteur, debiteur));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+//    @GetMapping("/person")
+//    public ResponseEntity<Login> searchLoginByEmail(@RequestParam("email") final String email) {
+//        try {
+//            return ResponseEntity.ok(personService.searchEmail(email));
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
 }

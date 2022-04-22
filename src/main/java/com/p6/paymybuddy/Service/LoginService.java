@@ -5,6 +5,7 @@ import com.p6.paymybuddy.Mapper.LoginConverter;
 import com.p6.paymybuddy.Model.Entity.LoginEntity;
 import com.p6.paymybuddy.Model.Repository.LoginRepository;
 import com.p6.paymybuddy.Service.Data.Login;
+import com.p6.paymybuddy.Service.Data.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ public class LoginService {
     private LoginConverter loginConverter;
     @Autowired
     private LoginRepository loginRepository;
+    @Autowired
+    private PersonService personService;
 
     public LoginService() {
     }
@@ -87,4 +90,9 @@ public class LoginService {
         return loginConverter.mapperLogin(loginRepository.findByEmailAndPassword(email, password).orElseThrow( () -> new NoSuchElementException("") ));
     }
 
+    public Login searchEmail(String email, Long crediteur) {
+        Login res = loginConverter.mapperLogin(loginRepository.findByEmail(email).orElseThrow( () -> new NoSuchElementException("") ));
+        personService.setFriends(crediteur, res.getIdLogin());
+        return res;
+    }
 }

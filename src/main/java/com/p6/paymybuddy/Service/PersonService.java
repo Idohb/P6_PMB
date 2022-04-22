@@ -1,10 +1,12 @@
 package com.p6.paymybuddy.Service;
 
 import com.p6.paymybuddy.Controller.Dto.Person.PersonRequest;
+import com.p6.paymybuddy.Mapper.LoginConverter;
 import com.p6.paymybuddy.Mapper.PersonConverter;
 import com.p6.paymybuddy.Model.Entity.LoginEntity;
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Model.Repository.PersonRepository;
+import com.p6.paymybuddy.Service.Data.Login;
 import com.p6.paymybuddy.Service.Data.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class PersonService {
     private PersonConverter personConverter;
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private LoginConverter loginConverter;
 
     public PersonService() {
     }
@@ -72,23 +77,15 @@ public class PersonService {
 
     }
 
-    //     public void attributeCrediteurToPerson(List<PersonEntity> globalPersonEntityList, List<CrediteurEntity> globalCrediteurEntityList) {
-//
-//        for (FireStationEntity fireStationEntity : globalFireStationEntityList) {
-//
-//            String addressFireStation = fireStationEntity.getAddress();
-//            List<PersonEntity> personEntityList = new ArrayList<>();
-//
-//            for (PersonEntity personEntity : globalPersonEntityList) {
-//                if (personEntity.getAddress().equals(addressFireStation)) {
-//                    personEntityList.add(personEntity);
-//                }
-//            }
-//
-//            fireStationEntity.setPersonFireStation(personEntityList);
-//
-//        }
-//
-//    }
+    public Long setFriends(Long lCrediteur, Long lDebiteur) {
+        List<PersonEntity> personEntityList;
+        PersonEntity peCrediteur = personRepository.findById(lCrediteur).orElseThrow( () -> new NoSuchElementException("") );
+        PersonEntity peDebiteur  = personRepository.findById(lDebiteur).orElseThrow( () -> new NoSuchElementException("") );
+        personEntityList = peCrediteur.getFriends();
+        personEntityList.add(peDebiteur);
+        peCrediteur.setFriends(personEntityList);
+        personRepository.save(peCrediteur);
+        return 0L;
+    }
 
 }

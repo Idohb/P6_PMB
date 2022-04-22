@@ -3,6 +3,8 @@ package com.p6.paymybuddy.Controller;
 
 import com.p6.paymybuddy.Controller.Dto.TransactionInternal.TransactionInternalRequest;
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
+import com.p6.paymybuddy.Service.Data.Login;
+import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import com.p6.paymybuddy.Service.TransactionInternalService;
 import lombok.extern.slf4j.Slf4j;
@@ -87,8 +89,6 @@ public class TransactionInternalController {
         transactionInternalService.deleteTransactionInternals();
         return ResponseEntity.noContent().build();
     }
-
-
 
 }
 

@@ -7,4 +7,5 @@ export interface TransactionInternal {
   timeTransaction: string;
   crediteur : Person ;
   debiteur: Person;
+  emailLogin:string;
 }

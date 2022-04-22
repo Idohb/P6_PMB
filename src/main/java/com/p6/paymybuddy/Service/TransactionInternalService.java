@@ -1,11 +1,13 @@
 package com.p6.paymybuddy.Service;
 
 import com.p6.paymybuddy.Controller.Dto.TransactionInternal.TransactionInternalRequest;
+import com.p6.paymybuddy.Mapper.PersonConverter;
 import com.p6.paymybuddy.Mapper.TransactionInternalConverter;
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
 import com.p6.paymybuddy.Model.Repository.PersonRepository;
 import com.p6.paymybuddy.Model.Repository.TransactionInternalRepository;
+import com.p6.paymybuddy.Service.Data.Login;
 import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class TransactionInternalService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private PersonConverter personConverter;
 
     public TransactionInternalService() {
     }
@@ -95,6 +100,9 @@ public class TransactionInternalService {
         if (transactionInternalRequest.getTimeTransaction() != null)
             transactionInternalEntity.setTimeTransactionInternal(transactionInternalRequest.getTimeTransaction());
     }
+
+
+
 
 
 //    @Transactional

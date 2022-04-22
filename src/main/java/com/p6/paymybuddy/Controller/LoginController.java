@@ -84,4 +84,13 @@ public class LoginController {
         }
     }
 
+    @GetMapping("loginSearch")
+    public ResponseEntity<Login> searchEmail(@RequestParam("emailLogin") final String emailLogin,@RequestParam("crediteur") final Long crediteur) {
+        try {
+            return ResponseEntity.ok(loginService.searchEmail(emailLogin,crediteur));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

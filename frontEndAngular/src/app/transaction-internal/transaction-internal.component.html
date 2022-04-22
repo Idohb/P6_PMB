@@ -14,10 +14,10 @@
 <!--</table>-->
 
 
-<div class="container border col-6">
+<div class="container border col-6" id="main-container">
   <div class="row">
     <div class="col-3">Send Money</div>
-    <div class="col-4 offset-5"><button type="button" class="btn btn-primary">Add Connection</button></div>
+    <div class="col-4 offset-5"><button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">Add Connection</button></div>
   </div>
   <div class="row justify-content-center">
     <div class="col-5">
@@ -55,6 +55,31 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addPersonConnectionModal" tabindex="-1" role="dialog" aria-labelledby="addPersonModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPersonModalLabel">Add Person</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm">
+          <div class="form-group">
+            <label for="emailLogin">Email</label>
+            <input type="email" [(ngModel)]="transactionInternalForm.emailLogin" name="emailLogin" class="form-control" id="emailLogin" placeholder="EmailLogin" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addForm.invalid" (click)="onAddPersonConnection(addForm.value)" type="submit" class="btn btn-primary" >Search Friends</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

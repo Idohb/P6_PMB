@@ -13,6 +13,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,8 +55,13 @@ public class PayMyBuddyApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         PersonEntity pe1 = personRepository.findById(1L).orElse(null);
         PersonEntity pe2 = personRepository.findById(2L).orElse(null);
+        PersonEntity pe3 = personRepository.findById(3L).orElse(null);
+        List<PersonEntity> peFriends = new ArrayList<>();
 
-        pe1.setFriends(List.of(pe2));
+        peFriends.add(pe2);
+        peFriends.add(pe3);
+        pe1.setFriends(peFriends);
+//        pe1.setFriends(List.of(pe2));
         personRepository.save(pe1);
     }
 

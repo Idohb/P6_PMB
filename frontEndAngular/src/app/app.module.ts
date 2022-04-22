@@ -17,7 +17,7 @@ const appRoutes: Routes = [
   { path: 'person/:id', component: PersonComponent },
   { path: '', component: LoginComponent }
 ];
-
+// reactiveFormModule
 @NgModule({
   declarations: [
     AppComponent,
