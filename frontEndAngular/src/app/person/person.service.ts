@@ -12,9 +12,9 @@ export class PersonService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http:HttpClient) { }
 
-  // public getPerson(): Observable<Person> {
-  //   return this.http.get<Person>(apiServerUrl + "Person" + login.email + "&password=" + login.password);
-  // }
+  public getPersonById(idPerson : number): Observable<Person> {
+     return this.http.get<Person>("http://localhost:8080/person/" + idPerson);
+  }
 
   public addPerson(person : Person) : Observable<Person> {
     return this.http.post<Person>(`${this.apiServerUrl}/person/add`, person);
@@ -29,4 +29,7 @@ export class PersonService {
   }
 
 
+  copy(crediteur: number, currentCrediteur: Person) {
+
+  }
 }

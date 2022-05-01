@@ -14,24 +14,28 @@
 <!--</table>-->
 
 
-<div class="container border col-6" id="main-container">
+<div class="container border col-12" id="main-container">
   <div class="row">
     <div class="col-3">Send Money</div>
-    <div class="col-4 offset-5"><button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">Add Connection</button></div>
+    <div class="col-4 offset-5"><button type="button" class="btn btn-primary" (click)="onOpenModalToAddFriends(null, 'add')">Add Connection</button></div>
   </div>
-  <div class="row justify-content-center">
-    <div class="col-5">
+  <div class="row">
+    <div class="col-1">
       <select class="form-select" aria-label="Default select example">
         <option selected>Select a Connection</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option *ngFor="let transaction of transactionInternalRequest" value="{{transaction.debiteur.idPerson}}">{{transaction.debiteur.firstName}}</option>
       </select>
     </div>
-    <div class="col-3">
-      <input type="number" />
-    </div>
-    <div class="col-2 offset-1"><button type="button" class="btn btn-primary">Pay</button></div>
+    <form #payForm="ngForm">
+      <div class="form-group">
+        <div class="col-3">
+          <input type="number" [(ngModel)]="transactionInternalForm.amount" name="amount" placeholder="1.0" step="0.01" min="0" max="10000000" id="number"/>
+        </div>
+      </div>
+      <div class="col-2">
+        <button (click)="clickToPay(payForm.value)" class="btn btn-primary"  type="submit">Pay</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -48,7 +52,7 @@
         </tr>
         </thead>
         <tbody>
-          <tr id="TransactionConnection" *ngFor="let transaction of transactionInternalResponse">
+          <tr id="TransactionConnection" *ngFor="let transaction of transactionInternalRequest">
             <th>{{transaction.debiteur.firstName}}</th>
             <th>{{transaction.description}}</th>
             <th>{{transaction.amount}}</th>

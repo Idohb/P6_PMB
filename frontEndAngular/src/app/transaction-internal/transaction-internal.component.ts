@@ -1,10 +1,12 @@
 import { Component, OnInit, Input} from '@angular/core';
-import {TransactionInternal} from "./transactionInternal";
+import {TransactionInternalRequest, TransactionInternal} from "./transactionInternal";
 import {TransactionInternalService} from "./transaction-internal.service";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Person} from "../person/Person";
 import {LoginService} from "../login-component/login/login.service";
+import {PersonService} from "../person/person.service";
+import {LoginComponent} from "../login-component/login/login.component";
 
 @Component({
   selector: 'app-transaction-internal',
@@ -16,39 +18,75 @@ export class TransactionInternalComponent implements OnInit {
   public transactionInternalResponse: TransactionInternal[] = [];
   public transactionInternalForm : TransactionInternal = new class implements TransactionInternal {
     amount: string= "";
-    crediteur!: Person;
-    debiteur!: Person;
-    description: string= "";
-    emailLogin: string= "";
-    idTransaction: number= 0;
+    crediteur: number = 0;
+    debiteur: number = 0;
+    description: string = "";
+    emailLogin: string = "";
+    idTransaction: number = 0;
     timeTransaction: string= "";
   }
+
+  public transactionInternalRequest: TransactionInternalRequest[] = [];
+  public transactionInternalRequestForm: TransactionInternalRequest = new class implements TransactionInternalRequest {
+    amount: string= "";
+    description: string = "";
+    emailLogin: string = "";
+    idTransaction: number = 0;
+    timeTransaction: string= "";
+    crediteur!: Person;
+    debiteur!: Person;
+
+  }
+
+  public transactionInternalObject !: TransactionInternal;
+
   private email :string ="";
   private debiteurId: number= 0;
+  private debiteurInfoTest!:Person;
 
   constructor(private transactionInternalService: TransactionInternalService,
               private loginService:LoginService,
+              private personService:PersonService,
               private router : Router) { }
 
   ngOnInit(): void {
+    this.getTransactions();
+  }
+
+  private getTransactions() {
     this.transactionInternalService.getTransactionInternal().subscribe( {
-      next: (data) => {
-        this.transactionInternalResponse = data;
-      },
-      error : () => {
-        console.info('error transaction')
-      },
-      complete: () => console.info('show transaction complete')
-
-
+        next: (data) => {
+          // this.transactionInternalResponse = data;
+          this.transactionInternalRequest = data;
+          for (const dataKey in data) {
+            console.log(data[dataKey].debiteur);
+          }
+        },
+        error : () => {
+          console.info('error transaction')
+        },
+        complete: () => console.info('show transaction complete')
       }
-
     );
   }
 
 
+  public clickToPay(payForm: TransactionInternal) : void {
+    payForm.crediteur = this.loginService.getUserId();
+    payForm.description = payForm.amount + " euros";
+    payForm.debiteur = 3;
 
-  public onOpenModal(person: Person|null, mode: string): void {
+    this.transactionInternalService.setAmount(payForm).subscribe( {
+      next:(debiteur) => {
+        this.getTransactions();
+      },
+      error:() => {
+        console.info("error ");
+      }
+    });
+  }
+
+  public onOpenModalToAddFriends(person: Person|null, mode: string): void {
     const container = document.getElementById('main-container');
     if (container === null) { return;}
     const button = document.createElement('button');
@@ -57,6 +95,9 @@ export class TransactionInternalComponent implements OnInit {
     button.setAttribute('data-toggle', 'modal');
     if (mode === 'add') {
       button.setAttribute('data-target', '#addPersonConnectionModal');
+    }
+    if (mode === 'pay') {
+      button.setAttribute('data-target', '#addPersonConnectionModal')
     }
     container.appendChild(button);
     button.click();
@@ -97,5 +138,6 @@ export class TransactionInternalComponent implements OnInit {
   public getDebiteurId() : number{
     return this.debiteurId;
   }
+
 
 }

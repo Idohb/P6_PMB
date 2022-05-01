@@ -59,7 +59,14 @@ public class TransactionInternalController {
 
     @PostMapping("transactionInternal")
     public ResponseEntity<TransactionInternal> createTransactionInternal(@RequestBody TransactionInternalRequest transactionInternal) {
-        return ResponseEntity.ok(transactionInternalService.addTransactionInternal(transactionInternal));
+        try {
+            log.info("create Transaction in progress");
+            return ResponseEntity.ok(transactionInternalService.addTransactionInternal(transactionInternal));
+        }
+        catch (NoSuchElementException e) {
+            log.info("Error");
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/transactionInternal/{id}")

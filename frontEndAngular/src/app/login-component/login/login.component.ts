@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
   onToggleLoginsCheck(login : Login) {
     this.loginService.getLogin(login).subscribe( {
       next: (data) => {
-        console.log("ici " + data.idLogin);
         if (data.email == login.email && data.password == login.password) {
           this.loginStatus = "true";
           this.loginService.setUserId(data.idLogin);
