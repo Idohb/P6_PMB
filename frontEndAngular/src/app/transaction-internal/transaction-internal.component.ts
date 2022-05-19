@@ -1,12 +1,8 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {TransactionInternalRequest, TransactionInternal} from "./transactionInternal";
 import {TransactionInternalService} from "./transaction-internal.service";
-import {Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
 import {Person} from "../person/Person";
 import {LoginService} from "../login-component/login/login.service";
-import {PersonService} from "../person/person.service";
-import {LoginComponent} from "../login-component/login/login.component";
 
 @Component({
   selector: 'app-transaction-internal',
@@ -26,6 +22,13 @@ export class TransactionInternalComponent implements OnInit {
     timeTransaction: string= "";
   }
 
+  public listFriends: Person[] = [];
+  public friends : Person = new class implements Person {
+    firstName: string = "";
+    idPerson: number = 0;
+    lastName: string = "";
+  };
+
   public transactionInternalRequest: TransactionInternalRequest[] = [];
   public transactionInternalRequestForm: TransactionInternalRequest = new class implements TransactionInternalRequest {
     amount: string= "";
@@ -38,29 +41,33 @@ export class TransactionInternalComponent implements OnInit {
 
   }
 
-  public transactionInternalObject !: TransactionInternal;
 
   private email :string ="";
   private debiteurId: number= 0;
-  private debiteurInfoTest!:Person;
 
   constructor(private transactionInternalService: TransactionInternalService,
-              private loginService:LoginService,
-              private personService:PersonService,
-              private router : Router) { }
+              private loginService:LoginService) { }
 
   ngOnInit(): void {
     this.getTransactions();
+    this.getFriends();
+  }
+
+  private getFriends() {
+    this.transactionInternalService.getFriends().subscribe( {
+      next: (data) => {
+        this.listFriends = data;
+      },
+      error : () => {
+        console.info('error retrieving friends')
+      }
+    });
   }
 
   private getTransactions() {
     this.transactionInternalService.getTransactionInternal().subscribe( {
         next: (data) => {
-          // this.transactionInternalResponse = data;
           this.transactionInternalRequest = data;
-          for (const dataKey in data) {
-            console.log(data[dataKey].debiteur);
-          }
         },
         error : () => {
           console.info('error transaction')
@@ -74,10 +81,10 @@ export class TransactionInternalComponent implements OnInit {
   public clickToPay(payForm: TransactionInternal) : void {
     payForm.crediteur = this.loginService.getUserId();
     payForm.description = payForm.amount + " euros";
-    payForm.debiteur = 3;
+    console.log(payForm.debiteur);
 
     this.transactionInternalService.setAmount(payForm).subscribe( {
-      next:(debiteur) => {
+      next:() => {
         this.getTransactions();
       },
       error:() => {

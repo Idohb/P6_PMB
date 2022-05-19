@@ -82,6 +82,15 @@ public class PersonController {
         }
     }
 
+    @GetMapping("friends/{id}")
+    public ResponseEntity<List<Person>> getFriends(@PathVariable("id") final Long id) {
+        try {
+            return ResponseEntity.ok(personService.getFriends(id));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 //    @GetMapping("/person")
 //    public ResponseEntity<Login> searchLoginByEmail(@RequestParam("email") final String email) {
 //        try {

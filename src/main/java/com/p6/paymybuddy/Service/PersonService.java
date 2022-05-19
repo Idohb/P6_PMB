@@ -88,4 +88,14 @@ public class PersonService {
         return 0L;
     }
 
+//    public Person getPerson(final Long id) {
+//        PersonEntity personEntity = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Id " + id + " not found"));
+//        return personConverter.mapperPerson(personEntity);
+//    }
+
+    public List<Person> getFriends(Long id) {
+        PersonEntity personEntity = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Id " + id + " not found"));
+        List<PersonEntity> friends = personEntity.getFriends();
+        return personConverter.mapperPerson(friends);
+    }
 }

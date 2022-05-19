@@ -20,20 +20,20 @@
     <div class="col-4 offset-5"><button type="button" class="btn btn-primary" (click)="onOpenModalToAddFriends(null, 'add')">Add Connection</button></div>
   </div>
   <div class="row">
-    <div class="col-1">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Select a Connection</option>
-        <option *ngFor="let transaction of transactionInternalRequest" value="{{transaction.debiteur.idPerson}}">{{transaction.debiteur.firstName}}</option>
-      </select>
-    </div>
     <form #payForm="ngForm">
       <div class="form-group">
+        <div class="col-1">
+          <select class="form-select" aria-label="Default select example" name="debiteur" id="debiteur" [(ngModel)]='transactionInternalForm.debiteur'>
+            <option value="">Select a Connection</option>
+            <option *ngFor="let friends of listFriends" [value]="friends.idPerson">{{friends.firstName}}</option>
+          </select>
+        </div>
         <div class="col-3">
           <input type="number" [(ngModel)]="transactionInternalForm.amount" name="amount" placeholder="1.0" step="0.01" min="0" max="10000000" id="number"/>
         </div>
       </div>
       <div class="col-2">
-        <button (click)="clickToPay(payForm.value)" class="btn btn-primary"  type="submit">Pay</button>
+        <button [disabled]="payForm.invalid" (click)="clickToPay(payForm.value)" class="btn btn-primary"  type="submit">Pay</button>
       </div>
     </form>
   </div>
@@ -87,6 +87,26 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="informationTransactionModal" tabindex="-1" role="dialog" aria-labelledby="informationTransactionModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="informationTransaction">Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div>
+        <p>une commission a été effectué.</p>
+        <p>récapitulatif : </p>
+        montant de la transaction effectué : {{transactionInternalForm.amount}}
+        commission prélevé : {{transactionInternalForm.amount}} * 0.5
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

@@ -7,17 +7,16 @@ import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
 import com.p6.paymybuddy.Model.Repository.PersonRepository;
 import com.p6.paymybuddy.Model.Repository.TransactionInternalRepository;
-import com.p6.paymybuddy.Service.Data.Login;
-import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
+
 import java.util.NoSuchElementException;
 
 @Service
@@ -55,8 +54,7 @@ public class TransactionInternalService {
 
     public TransactionInternal addTransactionInternal(TransactionInternalRequest transactionInternalRequest) {
         List<PersonEntity> personEntities = personRepository.findAll();
-        LocalDate date = LocalDate.now();
-
+        LocalDateTime date = LocalDateTime.now();
         PersonEntity peCrediteur = personRepository.findById(transactionInternalRequest.getCrediteur()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionInternalRequest.getCrediteur() + " not found"));
         PersonEntity peDebiteur  = personRepository.findById(transactionInternalRequest.getDebiteur()).orElseThrow(()  -> new NoSuchElementException("Id Debiteur : "  + transactionInternalRequest.getDebiteur()  + " not found"));
 
