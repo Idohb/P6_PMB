@@ -1,0 +1,112 @@
+<!--<table class="history">-->
+<!--  <thead>-->
+<!--    <tr id="TabHeader">-->
+<!--      <th id="Connections"> Connections </th>-->
+<!--      <th id="Description"> Description </th>-->
+<!--      <th id="Amount">      Amount       </th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tr id="TransactionConnection" *ngFor="let transaction of transactionInternalResponse">-->
+<!--    <th>{{transaction.debiteur.firstName}}</th>-->
+<!--    <th>{{transaction.description}}</th>-->
+<!--    <th>{{transaction.amount}}</th>-->
+<!--  </tr>-->
+<!--</table>-->
+
+
+<div class="container border col-12" id="main-container">
+  <div class="row">
+    <div class="col-3">Send Money</div>
+    <div class="col-4 offset-5"><button type="button" class="btn btn-primary" (click)="onOpenModalToAddFriends(null, 'add')">Add Connection</button></div>
+  </div>
+  <div class="row">
+    <form #payForm="ngForm">
+      <div class="form-group">
+        <div class="col-1">
+          <select class="form-select" aria-label="Default select example" name="debiteur" id="debiteur" [(ngModel)]='transactionInternalForm.debiteur'>
+            <option value="">Select a Connection</option>
+            <option *ngFor="let friends of listFriends" [value]="friends.idPerson">{{friends.firstName}}</option>
+          </select>
+        </div>
+        <div class="col-3">
+          <input type="number" [(ngModel)]="transactionInternalForm.amount" name="amount" placeholder="1.0" step="0.01" min="0" max="10000000" id="number"/>
+        </div>
+      </div>
+      <div class="col-2">
+        <button [disabled]="payForm.invalid" (click)="clickToPay(payForm.value)" class="btn btn-primary"  type="submit">Pay</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container justify-content-center col-6">
+  <div class="row justify-content-center">
+<!--    <div class="col-md-8 mx-auto">-->
+    <div class="col-auto">
+      <table class="table bg-white table-bordered">
+        <thead>
+        <tr>
+          <th > Connections </th>
+          <th > Description </th>
+          <th > Amount       </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr id="TransactionConnection" *ngFor="let transaction of transactionInternalRequest">
+            <th>{{transaction.debiteur.firstName}}</th>
+            <th>{{transaction.description}}</th>
+            <th>{{transaction.amount}}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addPersonConnectionModal" tabindex="-1" role="dialog" aria-labelledby="addPersonModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPersonModalLabel">Add Person</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm">
+          <div class="form-group">
+            <label for="emailLogin">Email</label>
+            <input type="email" [(ngModel)]="transactionInternalForm.emailLogin" name="emailLogin" class="form-control" id="emailLogin" placeholder="EmailLogin" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addForm.invalid" (click)="onAddPersonConnection(addForm.value)" type="submit" class="btn btn-primary" >Search Friends</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="informationTransactionModal" tabindex="-1" role="dialog" aria-labelledby="informationTransactionModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="informationTransaction">Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div>
+        <p>une commission a été effectué.</p>
+        <p>récapitulatif : </p>
+        montant de la transaction effectué : {{transactionInternalForm.amount}}
+        commission prélevé : {{transactionInternalForm.amount}} * 0.5
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

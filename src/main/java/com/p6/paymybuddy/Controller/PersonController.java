@@ -1,12 +1,12 @@
 package com.p6.paymybuddy.Controller;
 
+import com.p6.paymybuddy.Controller.Dto.Person.PersonRequest;
+import com.p6.paymybuddy.Service.Data.Login;
 import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,10 +14,12 @@ import java.util.NoSuchElementException;
 @RestController
 public class PersonController {
 
-    // Add constructor if you want to put a "final" in autowired
-    @Autowired
-    private PersonService personService;
+    private final PersonService personService;
 
+    @Autowired
+    public PersonController(PersonService personService) {
+        this.personService = personService;
+    }
 
 
     @GetMapping("persons")
@@ -37,4 +39,65 @@ public class PersonController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("person")
+    public ResponseEntity<Person> createPerson(@RequestBody PersonRequest person) {
+        return ResponseEntity.ok(personService.addPerson(person));
+    }
+
+    @PutMapping("/person/{id}")
+    public ResponseEntity<Person> updatePerson(@PathVariable("id") final Long id, @RequestBody PersonRequest person) {
+        try {
+            return ResponseEntity.ok(personService.updatePerson(id, person));
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/person/{id}")
+    public ResponseEntity<?> deletePerson(@PathVariable("id") final Long id) {
+        try {
+            personService.getPerson(id);
+            personService.deletePerson(id);
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/persons")
+    public ResponseEntity<?> deletePersons() {
+        personService.deletePersons();
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("addFriends")
+    public ResponseEntity<Long> addFriends(@RequestParam("crediteur") final Long crediteur, @RequestParam("debiteur") final Long debiteur) {
+        try {
+            return ResponseEntity.ok(personService.setFriends(crediteur, debiteur));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("friends/{id}")
+    public ResponseEntity<List<Person>> getFriends(@PathVariable("id") final Long id) {
+        try {
+            return ResponseEntity.ok(personService.getFriends(id));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+//    @GetMapping("/person")
+//    public ResponseEntity<Login> searchLoginByEmail(@RequestParam("email") final String email) {
+//        try {
+//            return ResponseEntity.ok(personService.searchEmail(email));
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
 }
