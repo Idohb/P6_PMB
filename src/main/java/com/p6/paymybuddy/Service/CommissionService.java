@@ -3,6 +3,7 @@ package com.p6.paymybuddy.Service;
 import com.p6.paymybuddy.Controller.Dto.Commission.CommissionRequest;
 import com.p6.paymybuddy.Mapper.CommissionConverter;
 import com.p6.paymybuddy.Model.Entity.CommissionEntity;
+import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
 import com.p6.paymybuddy.Model.Repository.CommissionRepository;
 import com.p6.paymybuddy.Service.Data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,11 @@ public class CommissionService {
     public Commission searchTransaction(Long transaction_id) {
         return commissionConverter.mapperCommission(commissionRepository.findByTransaction_id(transaction_id)
                 .orElseThrow(() -> new NoSuchElementException("")));
+    }
+
+    public void processCommission (Long transaction_id) {
+//        Long amountCommission = this.transactionInternalEntity.getAmount() * 0.5;
+        return ;
     }
 
 }
