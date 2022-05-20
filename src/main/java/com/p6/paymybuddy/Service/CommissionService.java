@@ -65,6 +65,6 @@ public class CommissionService {
     public void processCommission (Long transaction_id) {
 //        Long amountCommission = this.transactionInternalEntity.getAmount() * 0.5;
         return ;
-    }
+    } // test
 
 }
