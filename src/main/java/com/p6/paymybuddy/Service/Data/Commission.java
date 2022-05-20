@@ -1,24 +1,19 @@
 package com.p6.paymybuddy.Service.Data;
 
 import com.p6.paymybuddy.Model.Entity.CommissionEntity;
+import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
 import lombok.Data;
 
 
 @Data
 public class Commission {
 
-    private Long id_commission;
-    private Long transactionid;
-    private String amount;
+    private Long id;
+    private TransactionInternal transaction;
+    private Double amount;
 
     public Commission() {
 
-    }
-
-    public Commission(CommissionEntity cE) {
-        setId_commission(cE.getIdcommission());
-        setTransactionid(cE.getTransactionid());
-        setAmount(cE.getAmount());
     }
 
 }

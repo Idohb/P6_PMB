@@ -17,12 +17,10 @@ public class PersonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPerson;
+    private Long id;
 
-    @Column(name="first_name")
     private String firstName;
 
-    @Column(name="last_name")
     private String lastName;
 
     @OneToMany(mappedBy = "debiteur")
@@ -32,7 +30,6 @@ public class PersonEntity {
     private List<TransactionInternalEntity> crediteur;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "login_id")
     private LoginEntity login;
 
     @ManyToMany
@@ -42,11 +39,6 @@ public class PersonEntity {
             inverseJoinColumns = @JoinColumn(name="this_person")
     )
     private List<PersonEntity> friends;
-
-    public void addFriend(PersonEntity personEntity) {
-        friends.add(personEntity);
-    }
-
 
 }
 

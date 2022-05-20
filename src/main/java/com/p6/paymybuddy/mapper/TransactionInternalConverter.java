@@ -1,7 +1,6 @@
-package com.p6.paymybuddy.Mapper;
+package com.p6.paymybuddy.mapper;
 
 
-import com.p6.paymybuddy.Model.Entity.LoginEntity;
 import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import org.springframework.stereotype.Component;
@@ -15,10 +14,10 @@ public class TransactionInternalConverter {
         PersonConverter personConverter = new PersonConverter();
 
         TransactionInternal transactionInternal = new TransactionInternal();
-        transactionInternal.setIdTransactionInternal(transactionInternalEntity.getIdTransactionInternal());
+        transactionInternal.setId(transactionInternalEntity.getId());
         transactionInternal.setDescription(transactionInternalEntity.getDescription());
         transactionInternal.setAmount(transactionInternalEntity.getAmount());
-        transactionInternal.setTimeTransaction(transactionInternalEntity.getTimeTransactionInternal());
+        transactionInternal.setTimeTransaction(transactionInternalEntity.getTimeTransaction());
 
         if (transactionInternalEntity.getCrediteur() != null) {
             transactionInternal.setCrediteur(personConverter.mapperPerson(transactionInternalEntity.getCrediteur()));

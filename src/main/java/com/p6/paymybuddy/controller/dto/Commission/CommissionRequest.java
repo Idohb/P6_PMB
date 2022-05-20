@@ -1,4 +1,4 @@
-package com.p6.paymybuddy.Controller.Dto.Commission;
+package com.p6.paymybuddy.controller.dto.Commission;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CommissionRequest {
-    private Long id_transaction;
-    private Long transaction_id;
-    private String Amount;
+    private Long transactionId;
+    private Double amount;
 }

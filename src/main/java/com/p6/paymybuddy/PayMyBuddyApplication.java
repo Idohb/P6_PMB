@@ -1,5 +1,6 @@
 package com.p6.paymybuddy;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Model.Repository.PersonRepository;
 import org.hibernate.collection.internal.PersistentBag;
@@ -24,6 +25,10 @@ public class PayMyBuddyApplication implements CommandLineRunner {
         SpringApplication.run(PayMyBuddyApplication.class, args);
     }
 
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 
     @Autowired
     private PersonRepository personRepository;

@@ -1,5 +1,6 @@
 package com.p6.paymybuddy.Model.Entity;
 
+import com.p6.paymybuddy.Service.Data.Person;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,11 +18,10 @@ public class LoginEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idLogin;
+    private Long id;
 
-    @Column(name="email")
     private String email;
 
-    @Column(name="password")
     private String password;
+
 }

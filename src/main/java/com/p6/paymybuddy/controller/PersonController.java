@@ -1,7 +1,6 @@
-package com.p6.paymybuddy.Controller;
+package com.p6.paymybuddy.controller;
 
-import com.p6.paymybuddy.Controller.Dto.Person.PersonRequest;
-import com.p6.paymybuddy.Service.Data.Login;
+import com.p6.paymybuddy.controller.dto.Person.PersonRequest;
 import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;

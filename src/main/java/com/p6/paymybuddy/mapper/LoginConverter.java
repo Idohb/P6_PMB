@@ -1,8 +1,10 @@
-package com.p6.paymybuddy.Mapper;
+package com.p6.paymybuddy.mapper;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p6.paymybuddy.Model.Entity.LoginEntity;
 import com.p6.paymybuddy.Service.Data.Login;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,13 +12,11 @@ import java.util.stream.Collectors;
 
 @Component
 public class LoginConverter {
-    public Login mapperLogin(LoginEntity loginEntity) {
-        Login login = new Login();
-        login.setIdLogin(loginEntity.getIdLogin());
-        login.setEmail(loginEntity.getEmail());
-        login.setPassword(loginEntity.getPassword());
 
-        return login;
+    @Autowired
+    private ObjectMapper objectMapper;
+    public Login mapperLogin(LoginEntity loginEntity) {
+        return objectMapper.convertValue(loginEntity, Login.class);
     }
 
     public List<Login> mapperLogin(List<LoginEntity> loginEntities) {

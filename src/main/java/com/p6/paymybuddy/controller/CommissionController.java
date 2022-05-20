@@ -1,6 +1,6 @@
-package com.p6.paymybuddy.Controller;
+package com.p6.paymybuddy.controller;
 
-import com.p6.paymybuddy.Controller.Dto.Commission.CommissionRequest;
+import com.p6.paymybuddy.controller.dto.Commission.CommissionRequest;
 import com.p6.paymybuddy.Service.CommissionService;
 import com.p6.paymybuddy.Service.Data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class CommissionController {
     @PostMapping("commission")
     public ResponseEntity<Commission> createCommission(@RequestBody CommissionRequest commission) {
         try {
-            return ResponseEntity.ok(commissionService.addCommission(commission));
+            return ResponseEntity.ok(commissionService.addCommission(commission.getTransactionId()));
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
@@ -57,7 +57,7 @@ public class CommissionController {
     @GetMapping("commissionByTransaction")
     public ResponseEntity<Commission> searchCommissionByTransaction(@RequestParam("transaction_id") final Long transaction_id) {
         try {
-            return ResponseEntity.ok(commissionService.searchTransaction(transaction_id));
+            return ResponseEntity.ok(commissionService.searchCommissionByTransaction(transaction_id));
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

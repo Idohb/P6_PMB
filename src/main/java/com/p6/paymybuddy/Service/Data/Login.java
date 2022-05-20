@@ -5,17 +5,11 @@ import lombok.Data;
 
 @Data
 public class Login {
-    private Long idLogin;
+    private Long id;
     private String email;
     private String password;
 
     public Login() {
-    }
-
-    public Login(LoginEntity p) {
-        setIdLogin(p.getIdLogin());
-        setEmail(p.getEmail());
-        setPassword(p.getPassword());
     }
 
 }

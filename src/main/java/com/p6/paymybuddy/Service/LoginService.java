@@ -1,17 +1,14 @@
 package com.p6.paymybuddy.Service;
 
-import com.p6.paymybuddy.Controller.Dto.Login.LoginRequest;
-import com.p6.paymybuddy.Mapper.LoginConverter;
+import com.p6.paymybuddy.controller.dto.Login.LoginRequest;
+import com.p6.paymybuddy.mapper.LoginConverter;
 import com.p6.paymybuddy.Model.Entity.LoginEntity;
 import com.p6.paymybuddy.Model.Repository.LoginRepository;
 import com.p6.paymybuddy.Service.Data.Login;
-import com.p6.paymybuddy.Service.Data.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Service
@@ -92,7 +89,7 @@ public class LoginService {
 
     public Login searchEmail(String email, Long crediteur) {
         Login res = loginConverter.mapperLogin(loginRepository.findByEmail(email).orElseThrow( () -> new NoSuchElementException("") ));
-        personService.setFriends(crediteur, res.getIdLogin());
+        personService.setFriends(crediteur, res.getId());
         return res;
     }
 }

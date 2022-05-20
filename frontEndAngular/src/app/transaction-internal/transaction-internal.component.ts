@@ -25,7 +25,7 @@ export class TransactionInternalComponent implements OnInit {
   public listFriends: Person[] = [];
   public friends : Person = new class implements Person {
     firstName: string = "";
-    idPerson: number = 0;
+    id: number = 0;
     lastName: string = "";
   };
 
@@ -128,8 +128,8 @@ export class TransactionInternalComponent implements OnInit {
     this.transactionInternalService.searchPersonConnection(personConnection).subscribe( {
       next:(debiteur) => {
         // console.log(this.loginService.getUserId());
-        console.log(debiteur.idLogin);
-        this.setDebiteurId(debiteur.idLogin);
+        console.log(debiteur.id);
+        this.setDebiteurId(debiteur.id);
       },
       error:() => {
         console.info("error ");

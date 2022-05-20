@@ -1,7 +1,9 @@
-package com.p6.paymybuddy.Mapper;
+package com.p6.paymybuddy.mapper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Service.Data.Person;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,13 +12,15 @@ import java.util.stream.Collectors;
 @Component
 public class PersonConverter {
 
-    public Person mapperPerson(PersonEntity personEntity) {
-        Person person = new Person();
-        person.setIdPerson(personEntity.getIdPerson());
-        person.setFirstName(personEntity.getFirstName());
-        person.setLastName(personEntity.getLastName());
+    @Autowired
+    private ObjectMapper objectMapper;
 
-        return person;
+    public Person mapperPerson(PersonEntity personEntity) {
+        Person p = new Person();
+        p.setId(personEntity.getId());
+        p.setFirstName(personEntity.getFirstName());
+        p.setLastName(personEntity.getLastName());
+        return p;
     }
 
     public List<Person> mapperPerson(List<PersonEntity> personEntities) {

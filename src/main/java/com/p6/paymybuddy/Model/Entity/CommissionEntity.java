@@ -1,5 +1,6 @@
 package com.p6.paymybuddy.Model.Entity;
 
+import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,12 +14,11 @@ import javax.persistence.*;
 public class CommissionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idcommission;
+    private Long id;
 
-    @Column(name="transactionid")
-    private Long transactionid;
+    @ManyToOne
+    private TransactionInternalEntity transaction;
 
-    @Column(name = "amount")
-    private String amount;
+    private Double amount;
 
 }

@@ -1,7 +1,7 @@
-package com.p6.paymybuddy.Controller;
+package com.p6.paymybuddy.controller;
 
 
-import com.p6.paymybuddy.Controller.Dto.Login.LoginRequest;
+import com.p6.paymybuddy.controller.dto.Login.LoginRequest;
 import com.p6.paymybuddy.Service.Data.Login;
 import com.p6.paymybuddy.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController

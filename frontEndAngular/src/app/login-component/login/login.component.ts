@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   public loginResponse: Login[] = [];
   public loginForm: Login = new class implements Login {
     email: string = "";
-    idLogin: number = 0;
+    id: number = 0;
     password: string = "";
     user_id:number = 0;
   };
@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
       next: (data) => {
         if (data.email == login.email && data.password == login.password) {
           this.loginStatus = "true";
-          this.loginService.setUserId(data.idLogin);
-          this.router.navigate(['person/'+ data.idLogin]);
+          this.loginService.setUserId(data.id);
+          this.router.navigate(['person/'+ data.id]);
         }
     },
       error :  () => {

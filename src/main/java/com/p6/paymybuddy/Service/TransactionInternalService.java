@@ -1,24 +1,18 @@
 package com.p6.paymybuddy.Service;
 
-import com.p6.paymybuddy.Controller.Dto.TransactionInternal.TransactionInternalRequest;
-import com.p6.paymybuddy.Mapper.PersonConverter;
-import com.p6.paymybuddy.Mapper.TransactionInternalConverter;
+import com.p6.paymybuddy.controller.dto.TransactionInternal.TransactionInternalRequest;
+import com.p6.paymybuddy.mapper.TransactionInternalConverter;
 import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
-import com.p6.paymybuddy.Model.Repository.CommissionRepository;
 import com.p6.paymybuddy.Model.Repository.PersonRepository;
 import com.p6.paymybuddy.Model.Repository.TransactionInternalRepository;
 import com.p6.paymybuddy.Service.Data.Commission;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import java.util.NoSuchElementException;
@@ -52,7 +46,8 @@ public class TransactionInternalService {
     }
 
     public List<TransactionInternal> getTransactionInternalByCrediteur(final Long id) {
-        List<TransactionInternalEntity> transactionInternalEntity = transactionInternalRepository.findByCrediteurIdPerson(id).orElseThrow(() -> new NoSuchElementException("Id " + id + " not found"));
+        PersonEntity crediteur = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person id " + id + " not found"));
+        List<TransactionInternalEntity> transactionInternalEntity = transactionInternalRepository.findByCrediteur(crediteur).orElseThrow(() -> new NoSuchElementException("Id " + id + " not found"));
         return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
     }
     @Transactional
@@ -69,8 +64,8 @@ public class TransactionInternalService {
                 peDebiteur);
 
         transactionInternalEntity = transactionInternalRepository.save(transactionInternalEntity);
-//        Commission test = this.commissionService.addCommission(transactionInternalEntity.getIdTransactionInternal());
-//        System.out.println(test.getAmount());
+        Commission test = this.commissionService.addCommission(transactionInternalEntity.getId());
+        System.out.println(test.getAmount());
         return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
 
     }
@@ -101,7 +96,7 @@ public class TransactionInternalService {
             transactionInternalEntity.setAmount(transactionInternalRequest.getAmount());
 
         if (transactionInternalRequest.getTimeTransaction() != null)
-            transactionInternalEntity.setTimeTransactionInternal(transactionInternalRequest.getTimeTransaction());
+            transactionInternalEntity.setTimeTransaction(transactionInternalRequest.getTimeTransaction());
     }
 
 

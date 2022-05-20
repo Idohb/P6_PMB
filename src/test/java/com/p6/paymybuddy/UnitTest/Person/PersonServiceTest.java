@@ -1,10 +1,7 @@
 package com.p6.paymybuddy.UnitTest.Person;
 
-import com.p6.paymybuddy.Controller.Dto.Person.PersonRequest;
-import com.p6.paymybuddy.Mapper.PersonConverter;
-import com.p6.paymybuddy.Model.Entity.PersonEntity;
+import com.p6.paymybuddy.mapper.PersonConverter;
 import com.p6.paymybuddy.Model.Repository.PersonRepository;
-import com.p6.paymybuddy.Service.Data.Person;
 import com.p6.paymybuddy.Service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface TransactionInternalRepository extends JpaRepository<TransactionInternalEntity,Long> {
-    Optional<List<TransactionInternalEntity>> findByCrediteurIdPerson(Long idPerson);
+    Optional<List<TransactionInternalEntity>> findByCrediteur(PersonEntity crediteur);
 }

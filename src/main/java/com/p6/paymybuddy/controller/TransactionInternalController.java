@@ -1,10 +1,7 @@
-package com.p6.paymybuddy.Controller;
+package com.p6.paymybuddy.controller;
 
 
-import com.p6.paymybuddy.Controller.Dto.TransactionInternal.TransactionInternalRequest;
-import com.p6.paymybuddy.Model.Entity.PersonEntity;
-import com.p6.paymybuddy.Service.Data.Login;
-import com.p6.paymybuddy.Service.Data.Person;
+import com.p6.paymybuddy.controller.dto.TransactionInternal.TransactionInternalRequest;
 import com.p6.paymybuddy.Service.Data.TransactionInternal;
 import com.p6.paymybuddy.Service.TransactionInternalService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
