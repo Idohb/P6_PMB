@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 public class CommissionConverter {
     public Commission mapperCommission(CommissionEntity commissionEntity) {
         Commission commission = new Commission();
-        commission.setId_commission(commissionEntity.getId_commission());
-        commission.setTransaction_id(commissionEntity.getTransaction_id());
+        commission.setId_commission(commissionEntity.getIdcommission());
+        commission.setTransactionid(commissionEntity.getTransactionid());
         commission.setAmount(commissionEntity.getAmount());
 
         return commission;

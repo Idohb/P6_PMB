@@ -53,16 +53,16 @@ public class PayMyBuddyApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        PersonEntity pe1 = personRepository.findById(1L).orElse(null);
-        PersonEntity pe2 = personRepository.findById(2L).orElse(null);
-        PersonEntity pe3 = personRepository.findById(3L).orElse(null);
-        List<PersonEntity> peFriends = new ArrayList<>();
-
-        peFriends.add(pe2);
-        peFriends.add(pe3);
-        pe1.setFriends(peFriends);
-//        pe1.setFriends(List.of(pe2));
-        personRepository.save(pe1);
+//        PersonEntity pe1 = personRepository.findById(1L).orElse(null);
+//        PersonEntity pe2 = personRepository.findById(2L).orElse(null);
+//        PersonEntity pe3 = personRepository.findById(3L).orElse(null);
+//        List<PersonEntity> peFriends = new ArrayList<>();
+//
+//        peFriends.add(pe2);
+//        peFriends.add(pe3);
+//        pe1.setFriends(peFriends);
+////        pe1.setFriends(List.of(pe2));
+//        personRepository.save(pe1);
     }
 
 //    @Transactional

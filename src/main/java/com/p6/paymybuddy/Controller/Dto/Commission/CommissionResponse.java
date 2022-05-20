@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class CommissionResponse {
     private Long id_transaction;
     private Long transaction_id;
-    private Long Amount;
+    private String Amount;
 }

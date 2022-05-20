@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface CommissionRepository extends JpaRepository<CommissionEntity,Long> {
-    Optional<CommissionEntity> findByTransaction_id(Long transaction_id);
+    Optional<CommissionEntity> findByTransactionid(Long transaction_id);
 }

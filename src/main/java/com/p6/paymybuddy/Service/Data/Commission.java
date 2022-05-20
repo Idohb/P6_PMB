@@ -8,16 +8,16 @@ import lombok.Data;
 public class Commission {
 
     private Long id_commission;
-    private Long transaction_id;
-    private Long amount;
+    private Long transactionid;
+    private String amount;
 
     public Commission() {
 
     }
 
     public Commission(CommissionEntity cE) {
-        setId_commission(cE.getId_commission());
-        setTransaction_id(cE.getTransaction_id());
+        setId_commission(cE.getIdcommission());
+        setTransactionid(cE.getTransactionid());
         setAmount(cE.getAmount());
     }
 

@@ -1,10 +1,8 @@
 package com.p6.paymybuddy.Model.Entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Builder
 @NoArgsConstructor
@@ -14,14 +12,13 @@ import java.util.Objects;
 @Table(name = "commission")
 public class CommissionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_commission", nullable = false)
-    private Long id_commission;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idcommission;
 
-    @Column(name="transaction_id")
-    private Long transaction_id;
+    @Column(name="transactionid")
+    private Long transactionid;
 
     @Column(name = "amount")
-    private Long amount;
+    private String amount;
 
 }
