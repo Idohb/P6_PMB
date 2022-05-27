@@ -2,6 +2,7 @@ package com.p6.paymybuddy.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.p6.paymybuddy.Model.Entity.CommissionEntity;
+import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
 import com.p6.paymybuddy.Service.Data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,9 +16,12 @@ public class CommissionConverter {
     @Autowired
     private ObjectMapper objectMapper;
     public Commission mapperCommission(CommissionEntity commissionEntity) {
-        commissionEntity.getTransaction().getCrediteur().setFriends(null);
-        commissionEntity.getTransaction().getDebiteur().setFriends(null);
-        return objectMapper.convertValue(commissionEntity, Commission.class);
+        TransactionInternalConverter transactionInternalConverter = new TransactionInternalConverter();
+        Commission p = new Commission();
+        p.setId(commissionEntity.getId());
+        p.setAmount(commissionEntity.getAmount());
+        p.setTransaction(transactionInternalConverter.mapperTransactionInternal(commissionEntity.getTransaction()));
+        return p;
     }
 
     public List<Commission> mapperCommission(List<CommissionEntity> commissionEntities) {
