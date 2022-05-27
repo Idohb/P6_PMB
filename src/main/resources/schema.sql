@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`login` (
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mydb`.`Bank` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Bank` (
+CREATE TABLE IF NOT EXISTS `mydb`.`bank` (
      `id` INT NOT NULL AUTO_INCREMENT,
      `iban` VARCHAR(45) NOT NULL,
      `amount` DECIMAL(18,2) NULL,
