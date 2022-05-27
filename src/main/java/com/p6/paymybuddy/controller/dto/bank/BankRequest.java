@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class BankRequest {
-    String iban;
-    Double amount;
-    String user_id;
+    private String iban;
+    private Double amount;
+    private Long user_id;
 }

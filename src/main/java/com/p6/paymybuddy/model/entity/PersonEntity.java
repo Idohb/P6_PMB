@@ -30,6 +30,9 @@ public class PersonEntity {
     private List<TransactionInternalEntity> crediteur;
 
     @OneToOne(cascade = CascadeType.ALL)
+    private BankEntity bank;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private LoginEntity login;
 
     @ManyToMany

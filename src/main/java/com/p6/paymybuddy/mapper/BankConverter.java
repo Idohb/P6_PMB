@@ -1,9 +1,7 @@
 package com.p6.paymybuddy.mapper;
 
 import com.p6.paymybuddy.model.entity.BankEntity;
-import com.p6.paymybuddy.model.entity.PersonEntity;
 import com.p6.paymybuddy.service.data.Bank;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

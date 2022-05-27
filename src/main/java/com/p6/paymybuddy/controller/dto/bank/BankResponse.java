@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class BankResponse {
-    Long id;
-    String iban;
-    Double amount;
-    String user_id;
+    private Long id;
+    private String iban;
+    private Double amount;
+    private Long user_id;
 }
