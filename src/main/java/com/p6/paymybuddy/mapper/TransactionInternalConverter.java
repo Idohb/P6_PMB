@@ -1,8 +1,8 @@
 package com.p6.paymybuddy.mapper;
 
 
-import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
-import com.p6.paymybuddy.Service.Data.TransactionInternal;
+import com.p6.paymybuddy.model.entity.TransactionInternalEntity;
+import com.p6.paymybuddy.service.data.TransactionInternal;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

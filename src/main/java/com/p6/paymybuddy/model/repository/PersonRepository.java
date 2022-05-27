@@ -1,11 +1,8 @@
-package com.p6.paymybuddy.Model.Repository;
+package com.p6.paymybuddy.model.repository;
 
-import com.p6.paymybuddy.Model.Entity.LoginEntity;
-import com.p6.paymybuddy.Model.Entity.PersonEntity;
+import com.p6.paymybuddy.model.entity.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface PersonRepository  extends JpaRepository<PersonEntity, Long> {

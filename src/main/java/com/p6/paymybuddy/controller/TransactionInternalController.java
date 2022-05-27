@@ -2,8 +2,8 @@ package com.p6.paymybuddy.controller;
 
 
 import com.p6.paymybuddy.controller.dto.TransactionInternal.TransactionInternalRequest;
-import com.p6.paymybuddy.Service.Data.TransactionInternal;
-import com.p6.paymybuddy.Service.TransactionInternalService;
+import com.p6.paymybuddy.service.data.TransactionInternal;
+import com.p6.paymybuddy.service.TransactionInternalService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

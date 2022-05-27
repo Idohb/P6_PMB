@@ -1,7 +1,5 @@
-package com.p6.paymybuddy.Service.Data;
+package com.p6.paymybuddy.service.data;
 
-import com.p6.paymybuddy.Model.Entity.CommissionEntity;
-import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
 import lombok.Data;
 
 

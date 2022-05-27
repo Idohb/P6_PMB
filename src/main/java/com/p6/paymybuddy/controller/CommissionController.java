@@ -1,8 +1,8 @@
 package com.p6.paymybuddy.controller;
 
 import com.p6.paymybuddy.controller.dto.Commission.CommissionRequest;
-import com.p6.paymybuddy.Service.CommissionService;
-import com.p6.paymybuddy.Service.Data.Commission;
+import com.p6.paymybuddy.service.CommissionService;
+import com.p6.paymybuddy.service.data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

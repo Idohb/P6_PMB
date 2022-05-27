@@ -1,4 +1,4 @@
-package com.p6.paymybuddy.Model.Entity;
+package com.p6.paymybuddy.model.entity;
 
 import lombok.*;
 

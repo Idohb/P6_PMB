@@ -2,8 +2,8 @@ package com.p6.paymybuddy.mapper;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.p6.paymybuddy.Model.Entity.LoginEntity;
-import com.p6.paymybuddy.Service.Data.Login;
+import com.p6.paymybuddy.model.entity.LoginEntity;
+import com.p6.paymybuddy.service.data.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

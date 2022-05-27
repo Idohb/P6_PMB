@@ -1,12 +1,12 @@
-package com.p6.paymybuddy.Service;
+package com.p6.paymybuddy.service;
 
 import com.p6.paymybuddy.controller.dto.Person.PersonRequest;
 import com.p6.paymybuddy.mapper.LoginConverter;
 import com.p6.paymybuddy.mapper.PersonConverter;
-import com.p6.paymybuddy.Model.Entity.LoginEntity;
-import com.p6.paymybuddy.Model.Entity.PersonEntity;
-import com.p6.paymybuddy.Model.Repository.PersonRepository;
-import com.p6.paymybuddy.Service.Data.Person;
+import com.p6.paymybuddy.model.entity.LoginEntity;
+import com.p6.paymybuddy.model.entity.PersonEntity;
+import com.p6.paymybuddy.model.repository.PersonRepository;
+import com.p6.paymybuddy.service.data.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

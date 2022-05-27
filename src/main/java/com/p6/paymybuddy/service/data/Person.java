@@ -1,9 +1,6 @@
-package com.p6.paymybuddy.Service.Data;
+package com.p6.paymybuddy.service.data;
 
-import com.p6.paymybuddy.Model.Entity.PersonEntity;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class Person {

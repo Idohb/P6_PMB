@@ -1,9 +1,8 @@
 package com.p6.paymybuddy.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.p6.paymybuddy.Model.Entity.CommissionEntity;
-import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
-import com.p6.paymybuddy.Service.Data.Commission;
+import com.p6.paymybuddy.model.entity.CommissionEntity;
+import com.p6.paymybuddy.service.data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,7 @@
 package com.p6.paymybuddy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.p6.paymybuddy.Model.Entity.PersonEntity;
-import com.p6.paymybuddy.Model.Repository.PersonRepository;
-import org.hibernate.collection.internal.PersistentBag;
+import com.p6.paymybuddy.model.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,10 +11,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class PayMyBuddyApplication implements CommandLineRunner {

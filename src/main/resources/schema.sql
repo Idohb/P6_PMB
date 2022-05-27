@@ -84,22 +84,22 @@ CREATE TABLE IF NOT EXISTS `mydb`.`login` (
 -- -----------------------------------------------------
 -- Table `mydb`.`Bank`
 -- -----------------------------------------------------
-# DROP TABLE IF EXISTS `mydb`.`Bank` ;
-#
-# CREATE TABLE IF NOT EXISTS `mydb`.`Bank` (
-#      `id_banque` INT NOT NULL AUTO_INCREMENT,
-#      `iban` VARCHAR(45) NOT NULL,
-#      `montant` DECIMAL(18,2) NULL,
-#      `user_id` INT NOT NULL,
-#      PRIMARY KEY (`id_banque`),
-#      INDEX `fk_identifiant_idx` (`user_id` ASC) VISIBLE,
-#      UNIQUE INDEX `Iban_unique_id` (`iban` ASC) INVISIBLE,
-#      CONSTRAINT `fk_identifiant`
-#          FOREIGN KEY (`user_id`)
-#              REFERENCES `mydb`.`Person` (`id_person`)
-#              ON DELETE NO ACTION
-#              ON UPDATE NO ACTION)
-#     ENGINE = InnoDB;
+DROP TABLE IF EXISTS `mydb`.`Bank` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Bank` (
+     `id` INT NOT NULL AUTO_INCREMENT,
+     `iban` VARCHAR(45) NOT NULL,
+     `amount` DECIMAL(18,2) NULL,
+     `user_id` INT NOT NULL,
+     PRIMARY KEY (`id`),
+     INDEX `fk_identifiant_idx` (`user_id` ASC) VISIBLE,
+     UNIQUE INDEX `Iban_unique_id` (`iban` ASC) INVISIBLE,
+     CONSTRAINT `fk_identifiant`
+         FOREIGN KEY (`user_id`)
+             REFERENCES `mydb`.`Person` (`id`)
+             ON DELETE NO ACTION
+             ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -152,16 +152,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`social_networks` (
 # DROP TABLE IF EXISTS `mydb`.`Transaction_External` ;
 #
 # CREATE TABLE IF NOT EXISTS `mydb`.`Transaction_External` (
-#      `id_transaction_external` INT NOT NULL,
+#      `id` INT NOT NULL,
 #      `user_id` INT NOT NULL,
 #      `amount` DECIMAL(18,2) NULL,
 #      `time_transaction` DATETIME NULL,
 #      `description` TEXT(100) NULL,
-#      PRIMARY KEY (`id_transaction_external`),
+#      PRIMARY KEY (`id`),
 #      INDEX `fk_user_id_person_idx` (`user_id` ASC) VISIBLE,
 #      CONSTRAINT `fk_user_id_person`
 #          FOREIGN KEY (`user_id`)
-#              REFERENCES `mydb`.`Person` (`id_person`)
+#              REFERENCES `mydb`.`Person` (`id`)
 #              ON DELETE NO ACTION
 #              ON UPDATE NO ACTION)
 #     ENGINE = InnoDB;

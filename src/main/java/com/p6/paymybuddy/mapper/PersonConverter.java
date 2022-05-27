@@ -1,8 +1,8 @@
 package com.p6.paymybuddy.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.p6.paymybuddy.Model.Entity.PersonEntity;
-import com.p6.paymybuddy.Service.Data.Person;
+import com.p6.paymybuddy.model.entity.PersonEntity;
+import com.p6.paymybuddy.service.data.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,10 +1,9 @@
-package com.p6.paymybuddy.Model.Repository;
+package com.p6.paymybuddy.model.repository;
 
-import com.p6.paymybuddy.Model.Entity.LoginEntity;
+import com.p6.paymybuddy.model.entity.LoginEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository

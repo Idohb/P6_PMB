@@ -1,7 +1,7 @@
-package com.p6.paymybuddy.Model.Repository;
+package com.p6.paymybuddy.model.repository;
 
-import com.p6.paymybuddy.Model.Entity.CommissionEntity;
-import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
+import com.p6.paymybuddy.model.entity.CommissionEntity;
+import com.p6.paymybuddy.model.entity.TransactionInternalEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

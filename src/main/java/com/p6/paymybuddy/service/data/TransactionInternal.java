@@ -1,4 +1,4 @@
-package com.p6.paymybuddy.Service.Data;
+package com.p6.paymybuddy.service.data;
 
 import lombok.Data;
 

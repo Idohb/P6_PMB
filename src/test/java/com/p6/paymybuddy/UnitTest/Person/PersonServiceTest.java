@@ -1,8 +1,8 @@
 package com.p6.paymybuddy.UnitTest.Person;
 
 import com.p6.paymybuddy.mapper.PersonConverter;
-import com.p6.paymybuddy.Model.Repository.PersonRepository;
-import com.p6.paymybuddy.Service.PersonService;
+import com.p6.paymybuddy.model.repository.PersonRepository;
+import com.p6.paymybuddy.service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

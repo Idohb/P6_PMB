@@ -1,6 +1,5 @@
-package com.p6.paymybuddy.Model.Entity;
+package com.p6.paymybuddy.model.entity;
 
-import com.p6.paymybuddy.Service.Data.Person;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

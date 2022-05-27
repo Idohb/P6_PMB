@@ -1,12 +1,12 @@
-package com.p6.paymybuddy.Service;
+package com.p6.paymybuddy.service;
 
 import com.p6.paymybuddy.controller.dto.Commission.CommissionRequest;
 import com.p6.paymybuddy.mapper.CommissionConverter;
-import com.p6.paymybuddy.Model.Entity.CommissionEntity;
-import com.p6.paymybuddy.Model.Entity.TransactionInternalEntity;
-import com.p6.paymybuddy.Model.Repository.CommissionRepository;
-import com.p6.paymybuddy.Model.Repository.TransactionInternalRepository;
-import com.p6.paymybuddy.Service.Data.Commission;
+import com.p6.paymybuddy.model.entity.CommissionEntity;
+import com.p6.paymybuddy.model.entity.TransactionInternalEntity;
+import com.p6.paymybuddy.model.repository.CommissionRepository;
+import com.p6.paymybuddy.model.repository.TransactionInternalRepository;
+import com.p6.paymybuddy.service.data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
