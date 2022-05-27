@@ -1,4 +1,4 @@
-package com.p6.paymybuddy.controller.dto.Person;
+package com.p6.paymybuddy.controller.dto.person;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

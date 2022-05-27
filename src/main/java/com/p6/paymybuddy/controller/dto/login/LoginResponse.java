@@ -1,4 +1,5 @@
-package com.p6.paymybuddy.controller.dto.Login;
+package com.p6.paymybuddy.controller.dto.login;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LoginRequest {
+public class LoginResponse {
+    private Long idLogin;
     private String email;
     private String password;
-
 }

@@ -1,6 +1,6 @@
 package com.p6.paymybuddy.service;
 
-import com.p6.paymybuddy.controller.dto.Login.LoginRequest;
+import com.p6.paymybuddy.controller.dto.login.LoginRequest;
 import com.p6.paymybuddy.mapper.LoginConverter;
 import com.p6.paymybuddy.model.entity.LoginEntity;
 import com.p6.paymybuddy.model.repository.LoginRepository;

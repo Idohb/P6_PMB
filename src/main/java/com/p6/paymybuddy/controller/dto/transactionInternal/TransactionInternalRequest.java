@@ -1,4 +1,4 @@
-package com.p6.paymybuddy.controller.dto.TransactionInternal;
+package com.p6.paymybuddy.controller.dto.transactionInternal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

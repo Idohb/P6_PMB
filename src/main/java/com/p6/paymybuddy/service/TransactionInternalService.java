@@ -1,6 +1,6 @@
 package com.p6.paymybuddy.service;
 
-import com.p6.paymybuddy.controller.dto.TransactionInternal.TransactionInternalRequest;
+import com.p6.paymybuddy.controller.dto.transactionInternal.TransactionInternalRequest;
 import com.p6.paymybuddy.mapper.TransactionInternalConverter;
 import com.p6.paymybuddy.model.entity.PersonEntity;
 import com.p6.paymybuddy.model.entity.TransactionInternalEntity;

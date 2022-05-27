@@ -1,6 +1,6 @@
 package com.p6.paymybuddy.controller;
 
-import com.p6.paymybuddy.controller.dto.Commission.CommissionRequest;
+import com.p6.paymybuddy.controller.dto.commission.CommissionRequest;
 import com.p6.paymybuddy.service.CommissionService;
 import com.p6.paymybuddy.service.data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
