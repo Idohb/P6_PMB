@@ -11,9 +11,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class CommissionConverter {
+    @Autowired
+    TransactionInternalConverter transactionInternalConverter;
 
     public Commission mapperCommission(CommissionEntity commissionEntity) {
-        TransactionInternalConverter transactionInternalConverter = new TransactionInternalConverter();
         Commission p = new Commission();
         p.setId(commissionEntity.getId());
         p.setAmount(commissionEntity.getAmount());

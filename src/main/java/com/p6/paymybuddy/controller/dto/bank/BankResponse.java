@@ -11,5 +11,4 @@ public class BankResponse {
     private Long id;
     private String iban;
     private Double amount;
-    private Long user_id;
 }

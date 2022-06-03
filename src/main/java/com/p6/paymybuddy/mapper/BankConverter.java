@@ -17,7 +17,7 @@ public class BankConverter {
         bank.setId(bankEntity.getId());
         bank.setAmount(bankEntity.getAmount());
         bank.setIban(bankEntity.getIban());
-        bank.setUser(personConverter.mapperPerson(bankEntity.getUser()));
+        bank.setPerson(personConverter.mapperPerson(bankEntity.getPerson()));
         return bank;
     }
 

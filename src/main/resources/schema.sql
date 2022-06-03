@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Person` (
    `first_name` VARCHAR(45) NOT NULL,
    `last_name` VARCHAR(45) NOT NULL,
    `login_id` INT NOT NULL,
+   `bank_id` INT NOT NULL,
    PRIMARY KEY (`id`))
     ENGINE = InnoDB;
 
@@ -87,18 +88,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`login` (
 DROP TABLE IF EXISTS `mydb`.`Bank` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`bank` (
-     `id` INT NOT NULL AUTO_INCREMENT,
-     `iban` VARCHAR(45) NOT NULL,
-     `amount` DECIMAL(18,2) NULL,
-     `user_id` INT NOT NULL,
-     PRIMARY KEY (`id`),
-     INDEX `fk_identifiant_idx` (`user_id` ASC) VISIBLE,
-     UNIQUE INDEX `Iban_unique_id` (`iban` ASC) INVISIBLE,
-     CONSTRAINT `fk_identifiant`
-         FOREIGN KEY (`user_id`)
-             REFERENCES `mydb`.`Person` (`id`)
-             ON DELETE NO ACTION
-             ON UPDATE NO ACTION)
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `iban` VARCHAR(45) NOT NULL,
+    `amount` DECIMAL(18,2) NULL,
+    `person_id` INT NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `fk_bank_id_person_id_idx` (`person_id` ASC) VISIBLE,
+    UNIQUE INDEX `Iban_unique_id` (`iban` ASC) INVISIBLE,
+    CONSTRAINT `fk_bank_id_person_id`
+        FOREIGN KEY (`person_id`)
+            REFERENCES `mydb`.`Person` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
 

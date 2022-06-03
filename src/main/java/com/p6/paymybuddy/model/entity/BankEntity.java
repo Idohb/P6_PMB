@@ -23,6 +23,6 @@ public class BankEntity {
     private String iban;
 
     @OneToOne
-    private PersonEntity user;
+    private PersonEntity person;
 
 }

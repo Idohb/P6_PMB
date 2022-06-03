@@ -3,6 +3,7 @@ package com.p6.paymybuddy.service;
 import com.p6.paymybuddy.controller.dto.person.PersonRequest;
 import com.p6.paymybuddy.mapper.LoginConverter;
 import com.p6.paymybuddy.mapper.PersonConverter;
+import com.p6.paymybuddy.model.entity.BankEntity;
 import com.p6.paymybuddy.model.entity.LoginEntity;
 import com.p6.paymybuddy.model.entity.PersonEntity;
 import com.p6.paymybuddy.model.repository.PersonRepository;
@@ -26,6 +27,9 @@ public class PersonService {
     @Autowired
     private LoginConverter loginConverter;
 
+    @Autowired
+    private BankService bankService;
+
     public PersonService() {
     }
 
@@ -43,7 +47,12 @@ public class PersonService {
         PersonEntity personEntity = new PersonEntity(0L,
                 personRequest.getFirstName(),
                 personRequest.getLastName(),
-                new ArrayList<>(),new ArrayList<>(),new LoginEntity(0L,personRequest.getUsername(),personRequest.getPassword()),new ArrayList<>());
+                new ArrayList<>(),
+                new ArrayList<>(),
+                null,
+                new LoginEntity(0L,personRequest.getUsername(),personRequest.getPassword()),
+                new ArrayList<>());
+        personEntity.setBank(bankService.createBankWithPerson(personEntity.getId()));
         personEntity = personRepository.save(personEntity);
         return personConverter.mapperPerson(personEntity);
 
@@ -97,4 +106,5 @@ public class PersonService {
         List<PersonEntity> friends = personEntity.getFriends();
         return personConverter.mapperPerson(friends);
     }
+
 }

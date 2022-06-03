@@ -99,4 +99,13 @@ public class PersonController {
 //        }
 //    }
 
+//    @GetMapping("bank/{id}")
+//    public ResponseEntity<Long> getBankBank(@PathVariable("id") final Long id) {
+//        try {
+//            return ResponseEntity.ok(personService.getBankBank(id));
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
 }

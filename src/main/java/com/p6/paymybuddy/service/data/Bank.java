@@ -7,5 +7,5 @@ public class Bank {
     Long id;
     String iban;
     Double amount;
-    Person user;
+    Person person;
 }

@@ -2,8 +2,10 @@ package com.p6.paymybuddy.service;
 
 import com.p6.paymybuddy.controller.dto.transactionInternal.TransactionInternalRequest;
 import com.p6.paymybuddy.mapper.TransactionInternalConverter;
+import com.p6.paymybuddy.model.entity.BankEntity;
 import com.p6.paymybuddy.model.entity.PersonEntity;
 import com.p6.paymybuddy.model.entity.TransactionInternalEntity;
+import com.p6.paymybuddy.model.repository.BankRepository;
 import com.p6.paymybuddy.model.repository.PersonRepository;
 import com.p6.paymybuddy.model.repository.TransactionInternalRepository;
 import com.p6.paymybuddy.service.data.Commission;
@@ -31,6 +33,9 @@ public class TransactionInternalService {
     private PersonRepository personRepository;
 
     @Autowired
+    private BankRepository bankRepository;
+
+    @Autowired
     private CommissionService commissionService;
 
     public TransactionInternalService() {
@@ -56,6 +61,16 @@ public class TransactionInternalService {
         PersonEntity peCrediteur = personRepository.findById(transactionInternalRequest.getCrediteur()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionInternalRequest.getCrediteur() + " not found"));
         PersonEntity peDebiteur  = personRepository.findById(transactionInternalRequest.getDebiteur()).orElseThrow(()  -> new NoSuchElementException("Id Debiteur : "  + transactionInternalRequest.getDebiteur()  + " not found"));
 
+        BankEntity beCrediteur = peCrediteur.getBank();
+        BankEntity beDebiteur  = peDebiteur.getBank();
+
+        beCrediteur.setAmount(beCrediteur.getAmount()+transactionInternalRequest.getAmount());
+        beDebiteur.setAmount(beDebiteur.getAmount()-transactionInternalRequest.getAmount());
+
+        bankRepository.save(beCrediteur);
+        bankRepository.save(beDebiteur);
+
+
         TransactionInternalEntity transactionInternalEntity = new TransactionInternalEntity(0L,
                 transactionInternalRequest.getDescription(),
                 transactionInternalRequest.getAmount(),
@@ -63,9 +78,12 @@ public class TransactionInternalService {
                 peCrediteur,
                 peDebiteur);
 
+
         transactionInternalEntity = transactionInternalRepository.save(transactionInternalEntity);
         Commission test = this.commissionService.addCommission(transactionInternalEntity.getId());
-        System.out.println(test.getAmount());
+
+
+
         return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
 
     }
