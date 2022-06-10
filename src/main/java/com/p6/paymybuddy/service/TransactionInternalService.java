@@ -57,20 +57,20 @@ public class TransactionInternalService {
     }
     @Transactional
     public TransactionInternal addTransactionInternal(TransactionInternalRequest transactionInternalRequest) {
-        LocalDateTime date = LocalDateTime.now();
         PersonEntity peCrediteur = personRepository.findById(transactionInternalRequest.getCrediteur()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionInternalRequest.getCrediteur() + " not found"));
         PersonEntity peDebiteur  = personRepository.findById(transactionInternalRequest.getDebiteur()).orElseThrow(()  -> new NoSuchElementException("Id Debiteur : "  + transactionInternalRequest.getDebiteur()  + " not found"));
 
-        BankEntity beCrediteur = peCrediteur.getBank();
-        BankEntity beDebiteur  = peDebiteur.getBank();
 
-        beCrediteur.setAmount(beCrediteur.getAmount()+transactionInternalRequest.getAmount());
-        beDebiteur.setAmount(beDebiteur.getAmount()-transactionInternalRequest.getAmount());
+        this.bankTransaction(peCrediteur,peDebiteur,transactionInternalRequest.getAmount());
+        TransactionInternalEntity transactionInternalEntity = this.createTransactionInternal(transactionInternalRequest, peCrediteur, peDebiteur);
+        this.commissionService.addCommission(transactionInternalEntity.getId());
 
-        bankRepository.save(beCrediteur);
-        bankRepository.save(beDebiteur);
+        return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
 
+    }
 
+    private TransactionInternalEntity createTransactionInternal (TransactionInternalRequest transactionInternalRequest, PersonEntity peCrediteur, PersonEntity peDebiteur) {
+        LocalDateTime date = LocalDateTime.now();
         TransactionInternalEntity transactionInternalEntity = new TransactionInternalEntity(0L,
                 transactionInternalRequest.getDescription(),
                 transactionInternalRequest.getAmount(),
@@ -80,12 +80,17 @@ public class TransactionInternalService {
 
 
         transactionInternalEntity = transactionInternalRepository.save(transactionInternalEntity);
-        Commission test = this.commissionService.addCommission(transactionInternalEntity.getId());
+        return transactionInternalEntity;
+    }
+    private void bankTransaction(PersonEntity crediteur, PersonEntity debiteur, Double amount) {
+        BankEntity beCrediteur = crediteur.getBank();
+        BankEntity beDebiteur  = debiteur.getBank();
 
+        beCrediteur.setAmount(beCrediteur.getAmount() + amount);
+        beDebiteur.setAmount (beDebiteur.getAmount()  - amount);
 
-
-        return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
-
+        bankRepository.save(beCrediteur);
+        bankRepository.save(beDebiteur);
     }
 
     public TransactionInternal updateTransactionInternal(final Long id, TransactionInternalRequest transactionInternalRequest) {
@@ -116,23 +121,6 @@ public class TransactionInternalService {
         if (transactionInternalRequest.getTimeTransaction() != null)
             transactionInternalEntity.setTimeTransaction(transactionInternalRequest.getTimeTransaction());
     }
-
-
-
-
-
-//    @Transactional
-//    public void doTransaction(Long idCrediteur, Long idDebiteur, double amount) {
-//        PersonEntity credit = personRepository.findById(idCrediteur).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + id + " not found"));
-//        PersonEntity debit = personRepository.findById(idDebiteur).orElseThrow(() -> new NoSuchElementException("Id Debiteur : " + id + " not found"));
-//        double commission = amount * 0.05;
-//
-//        credit.setAmount(credit.getAmount() + amount);
-//        debit.setAmount(debit.getAmount() - amount - commission);
-//        personRepository.save(credit);
-//        personRepository.save(debit);
-//        this.addTransaction(credit, debit, amount, commission);
-//    }
 
 
 
