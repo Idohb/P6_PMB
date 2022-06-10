@@ -29,6 +29,9 @@ public class PersonEntity {
     @OneToMany(mappedBy = "crediteur")
     private List<TransactionInternalEntity> crediteur;
 
+    @OneToMany(mappedBy = "user")
+    private List<TransactionExternalEntity> user;
+
     @OneToOne(cascade = CascadeType.ALL)
     private BankEntity bank;
 

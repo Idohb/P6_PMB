@@ -49,6 +49,7 @@ public class PersonService {
                 personRequest.getLastName(),
                 new ArrayList<>(),
                 new ArrayList<>(),
+                new ArrayList<>(),
                 null,
                 new LoginEntity(0L,personRequest.getUsername(),personRequest.getPassword()),
                 new ArrayList<>());

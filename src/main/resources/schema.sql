@@ -150,22 +150,22 @@ CREATE TABLE IF NOT EXISTS `mydb`.`social_networks` (
 -- -----------------------------------------------------
 -- Table `mydb`.`Transaction_External`
 -- -----------------------------------------------------
-# DROP TABLE IF EXISTS `mydb`.`Transaction_External` ;
-#
-# CREATE TABLE IF NOT EXISTS `mydb`.`Transaction_External` (
-#      `id` INT NOT NULL,
-#      `user_id` INT NOT NULL,
-#      `amount` DECIMAL(18,2) NULL,
-#      `time_transaction` DATETIME NULL,
-#      `description` TEXT(100) NULL,
-#      PRIMARY KEY (`id`),
-#      INDEX `fk_user_id_person_idx` (`user_id` ASC) VISIBLE,
-#      CONSTRAINT `fk_user_id_person`
-#          FOREIGN KEY (`user_id`)
-#              REFERENCES `mydb`.`Person` (`id`)
-#              ON DELETE NO ACTION
-#              ON UPDATE NO ACTION)
-#     ENGINE = InnoDB;
+DROP TABLE IF EXISTS `mydb`.`Transaction_External` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Transaction_External` (
+     `id` INT NOT NULL,
+     `user_id` INT NOT NULL,
+     `amount` DECIMAL(18,2) NULL,
+     `time_transaction` DATETIME NULL,
+     `description` TEXT(100) NULL,
+     PRIMARY KEY (`id`),
+     INDEX `fk_transactionex_id_person_idx` (`user_id` ASC) VISIBLE,
+     CONSTRAINT `fk_transactionex_id_person`
+         FOREIGN KEY (`user_id`)
+             REFERENCES `mydb`.`Person` (`id`)
+             ON DELETE NO ACTION
+             ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
