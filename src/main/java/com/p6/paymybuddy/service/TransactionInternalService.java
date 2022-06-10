@@ -60,7 +60,6 @@ public class TransactionInternalService {
         PersonEntity peCrediteur = personRepository.findById(transactionInternalRequest.getCrediteur()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionInternalRequest.getCrediteur() + " not found"));
         PersonEntity peDebiteur  = personRepository.findById(transactionInternalRequest.getDebiteur()).orElseThrow(()  -> new NoSuchElementException("Id Debiteur : "  + transactionInternalRequest.getDebiteur()  + " not found"));
 
-
         this.bankTransaction(peCrediteur,peDebiteur,transactionInternalRequest.getAmount());
         TransactionInternalEntity transactionInternalEntity = this.createTransactionInternal(transactionInternalRequest, peCrediteur, peDebiteur);
         this.commissionService.addCommission(transactionInternalEntity.getId());

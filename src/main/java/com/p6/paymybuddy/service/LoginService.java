@@ -72,17 +72,6 @@ public class LoginService {
 
     }
 
-
-//    private Map<String, Object> matchPersonInfoByFirstnameAndLastname(List<LoginEntity> loginEntityList) {
-//        Map<String, Object> map = new HashMap<>();
-//
-//        for (LoginEntity le : loginEntityList) {
-//
-//        }
-//
-//        return map;
-//    }
-
     public Login searchEmailAndPassword(String email, String password) {
         return loginConverter.mapperLogin(loginRepository.findByEmailAndPassword(email, password).orElseThrow( () -> new NoSuchElementException("") ));
     }
