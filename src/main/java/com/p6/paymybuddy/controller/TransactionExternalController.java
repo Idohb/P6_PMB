@@ -1,14 +1,12 @@
 package com.p6.paymybuddy.controller;
 
+import com.p6.paymybuddy.controller.dto.transactionExternal.TransactionExternalRequest;
 import com.p6.paymybuddy.service.TransactionExternalService;
 import com.p6.paymybuddy.service.data.TransactionExternal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -41,5 +39,17 @@ public class TransactionExternalController {
             return ResponseEntity.notFound().build();
         }
     }
+    
+        @PostMapping("transactionExternal")
+        public ResponseEntity<TransactionExternal> createTransactionExternal(@RequestBody TransactionExternalRequest transactionExternal) {
+            try {
+                log.info("create Transaction in progress");
+                return ResponseEntity.ok(transactionExternalService.addTransactionExternal(transactionExternal));
+            }
+            catch (NoSuchElementException e) {
+                log.info("Error");
+                return ResponseEntity.notFound().build();
+            }
+        }
 
 }

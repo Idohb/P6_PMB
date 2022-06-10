@@ -11,6 +11,7 @@ import com.p6.paymybuddy.service.data.TransactionExternal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,9 +42,23 @@ public class TransactionExternalService {
     public TransactionExternal addTransactionExternal(TransactionExternalRequest transactionExternalRequest) {
         PersonEntity peUser = personRepository.findById(transactionExternalRequest.getUser()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionExternalRequest.getUser() + " not found"));
 
-        TransactionExternalEntity transactionExternalEntity = new TransactionExternalEntity();
+        TransactionExternalEntity transactionExternalEntity = this.createTransactionExternal(transactionExternalRequest, peUser);
+
         return transactionExternalConverter.mapperTransactionExternal(transactionExternalEntity);
     }
+    
+        private TransactionExternalEntity createTransactionExternal (TransactionExternalRequest transactionExternalRequest, PersonEntity peUser) {
+            LocalDateTime date = LocalDateTime.now();
+            TransactionExternalEntity transactionExternalEntity = new TransactionExternalEntity(0L,
+                    transactionExternalRequest.getDescription(),
+                    transactionExternalRequest.getAmount(),
+                    date.toString(),
+                    peUser);
+
+
+            transactionExternalEntity = transactionExternalRepository.save(transactionExternalEntity);
+            return transactionExternalEntity;
+        }
 
 
 }
