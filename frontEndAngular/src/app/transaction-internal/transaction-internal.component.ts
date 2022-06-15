@@ -142,7 +142,7 @@ export class TransactionInternalComponent implements OnInit {
     this.debiteurId = debiteurId;
   }
 
-  public getDebiteurId() : number{
+  public getDebiteurId() : number {
     return this.debiteurId;
   }
 
