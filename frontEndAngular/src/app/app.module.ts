@@ -9,11 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes} from "@angular/router";
 import { PersonComponent } from './person/person.component';
 import { TransactionInternalComponent } from './transaction-internal/transaction-internal.component';
+import { TransactionExternalComponent } from './transaction-external/transaction-external.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'person', component: LoginComponent },
   { path: 'transaction-internal', component:TransactionInternalComponent},
+  { path: 'transaction-external', component:TransactionExternalComponent},
   { path: 'person/:id', component: PersonComponent },
   { path: '', component: LoginComponent }
 ];
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
     LoginComponent,
     PersonComponent,
     TransactionInternalComponent,
+    TransactionExternalComponent,
   ],
   imports: [
     BrowserModule,
