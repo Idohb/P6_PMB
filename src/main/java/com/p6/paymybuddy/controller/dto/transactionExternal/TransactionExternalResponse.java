@@ -12,5 +12,5 @@ public class TransactionExternalResponse {
     private String description;
     private Double amount;
     private String timeTransaction;
-    private Long user_id;
+    private Long user;
 }

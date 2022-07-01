@@ -40,7 +40,8 @@ public class TransactionExternalService {
     }
 
     public TransactionExternal addTransactionExternal(TransactionExternalRequest transactionExternalRequest) {
-        PersonEntity peUser = personRepository.findById(transactionExternalRequest.getUser()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionExternalRequest.getUser() + " not found"));
+        PersonEntity peUser = personRepository.findById(transactionExternalRequest.getUser())
+                .orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionExternalRequest.getUser() + " not found"));
 
         TransactionExternalEntity transactionExternalEntity = this.createTransactionExternal(transactionExternalRequest, peUser);
 
@@ -61,4 +62,24 @@ public class TransactionExternalService {
         }
 
 
+    public TransactionExternal updateTransactionExternal(final Long id, TransactionExternalRequest transactionExternalRequest) {
+        TransactionExternalEntity entity = transactionExternalRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Id " + id + " not found"));
+        updateEntity(entity, transactionExternalRequest);
+        entity = transactionExternalRepository.save(entity);
+        return transactionExternalConverter.mapperTransactionExternal(entity);
+    }
+
+    private void updateEntity(TransactionExternalEntity transactionExternalEntity, TransactionExternalRequest transactionExternalRequest) {
+
+        if (transactionExternalRequest.getDescription() != null)
+            transactionExternalEntity.setDescription(transactionExternalRequest.getDescription());
+
+        if (transactionExternalRequest.getAmount() != null)
+            transactionExternalEntity.setAmount(transactionExternalRequest.getAmount());
+
+        if (transactionExternalRequest.getTimeTransaction() != null)
+            transactionExternalEntity.setTimeTransaction(transactionExternalRequest.getTimeTransaction());
+
+    }
 }

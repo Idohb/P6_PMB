@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`social_networks` (
 DROP TABLE IF EXISTS `mydb`.`Transaction_External` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`Transaction_External` (
-     `id` INT NOT NULL,
+     `id` INT NOT NULL AUTO_INCREMENT,
      `user_id` INT NOT NULL,
      `amount` DECIMAL(18,2) NULL,
      `time_transaction` DATETIME NULL,

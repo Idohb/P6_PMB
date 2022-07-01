@@ -51,5 +51,13 @@ public class TransactionExternalController {
                 return ResponseEntity.notFound().build();
             }
         }
+        @PutMapping("transactionExternal/{id}")
+        public ResponseEntity<TransactionExternal> updateTransactionExternal(@PathVariable("id") final Long id, @RequestBody TransactionExternalRequest transactionExternalRequest) {
+            try {
+                return ResponseEntity.ok(transactionExternalService.updateTransactionExternal(id, transactionExternalRequest));
+            } catch (NoSuchElementException exception) {
+                return ResponseEntity.notFound().build();
+            }
+        }
 
 }
