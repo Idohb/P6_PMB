@@ -130,6 +130,7 @@ export class TransactionInternalComponent implements OnInit {
         // console.log(this.loginService.getUserId());
         console.log(debiteur.id);
         this.setDebiteurId(debiteur.id);
+        this.getFriends();
       },
       error:() => {
         console.info("error ");
