@@ -2,10 +2,14 @@ package com.p6.paymybuddy.service;
 
 import com.p6.paymybuddy.controller.dto.commission.CommissionRequest;
 import com.p6.paymybuddy.mapper.CommissionConverter;
+import com.p6.paymybuddy.model.entity.BankEntity;
 import com.p6.paymybuddy.model.entity.CommissionEntity;
+import com.p6.paymybuddy.model.entity.PersonEntity;
 import com.p6.paymybuddy.model.entity.TransactionInternalEntity;
+import com.p6.paymybuddy.model.repository.BankRepository;
 import com.p6.paymybuddy.model.repository.CommissionRepository;
 import com.p6.paymybuddy.model.repository.TransactionInternalRepository;
+import com.p6.paymybuddy.service.data.Bank;
 import com.p6.paymybuddy.service.data.Commission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,9 @@ public class CommissionService {
 
     @Autowired
     private TransactionInternalRepository transactionInternalRepository;
+
+    @Autowired
+    private BankRepository bankRepository;
 
     public CommissionService() {
 
@@ -56,6 +63,40 @@ public class CommissionService {
 //
 //        return commissionConverter.mapperCommission(commissionEntity);
 //    }
+
+    public Commission processCommission(Long transactionId, PersonEntity crediteur) {
+
+
+        TransactionInternalEntity ti = transactionInternalRepository.findById(transactionId)
+                .orElseThrow(() ->new NoSuchElementException("Transaction not found"));
+
+        double amountTransactionInternal = ti.getAmount() * 0.05;
+        BigDecimal commission = new BigDecimal(amountTransactionInternal).setScale(2, RoundingMode.HALF_UP);
+        Double commissionAmount = commission.doubleValue();
+
+        CommissionEntity commissionEntity = new CommissionEntity(
+                0L,
+                ti,
+                commissionAmount
+        );
+
+        this.takeMoneyFromBank(crediteur, commissionAmount);
+
+        commissionRepository.save(commissionEntity);
+
+        return commissionConverter.mapperCommission(commissionEntity);
+    }
+
+    private void takeMoneyFromBank(PersonEntity crediteur, Double amount) {
+        BankEntity bankEntity = bankRepository.findByPerson_Id(crediteur.getId())
+                .orElseThrow(() ->new NoSuchElementException("Transaction not found"));
+
+        Double takeMoneyForApp = bankEntity.getAmount() - amount;
+        bankEntity.setAmount(takeMoneyForApp);
+
+        bankRepository.save(bankEntity);
+
+    }
 
     public Commission addCommission(Long transactionId) {
         TransactionInternalEntity ti = transactionInternalRepository.findById(transactionId)
