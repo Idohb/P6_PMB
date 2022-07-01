@@ -63,7 +63,7 @@ public class TransactionInternalService {
 
         this.bankTransaction(peCrediteur,peDebiteur,transactionInternalRequest.getAmount());
         TransactionInternalEntity transactionInternalEntity = this.createTransactionInternal(transactionInternalRequest, peCrediteur, peDebiteur);
-        this.commissionService.addCommission(transactionInternalEntity.getId());
+        this.commissionService.processCommission(transactionInternalEntity.getId(), peCrediteur);
 
         return transactionInternalConverter.mapperTransactionInternal(transactionInternalEntity);
 
@@ -86,8 +86,8 @@ public class TransactionInternalService {
         BankEntity beCrediteur = crediteur.getBank();
         BankEntity beDebiteur  = debiteur.getBank();
 
-        beCrediteur.setAmount(beCrediteur.getAmount() + amount);
-        beDebiteur.setAmount (beDebiteur.getAmount()  - amount);
+        beCrediteur.setAmount(beCrediteur.getAmount() - amount);
+        beDebiteur.setAmount (beDebiteur.getAmount()  + amount);
 
         bankRepository.save(beCrediteur);
         bankRepository.save(beDebiteur);
