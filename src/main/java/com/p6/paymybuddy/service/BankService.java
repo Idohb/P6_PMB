@@ -1,6 +1,7 @@
 package com.p6.paymybuddy.service;
 
 import com.p6.paymybuddy.controller.dto.bank.BankRequest;
+import com.p6.paymybuddy.controller.dto.transactionInternal.TransactionInternalRequest;
 import com.p6.paymybuddy.mapper.BankConverter;
 import com.p6.paymybuddy.model.entity.BankEntity;
 import com.p6.paymybuddy.model.entity.PersonEntity;
@@ -27,7 +28,7 @@ public class BankService {
     private PersonRepository personRepository;
 
     @Autowired
-    private PersonService personService;
+    private TransactionExternalService transactionExternalService;
 
     public List<Bank> getBanks() {
         return bankConverter.mapperBank(bankRepository.findAll());
@@ -55,9 +56,20 @@ public class BankService {
 
     }
 
+
+    public void bankTransaction(PersonEntity crediteur, PersonEntity debiteur, Double amount, String description) {
+        BankEntity beCrediteur = crediteur.getBank();
+        BankEntity beDebiteur  = debiteur.getBank();
+
+        beCrediteur.setAmount(beCrediteur.getAmount() - amount);
+        beDebiteur.setAmount (beDebiteur.getAmount()  + amount);
+        this.transactionExternalService.processTransactionExternal(amount, description, crediteur);
+        bankRepository.save(beCrediteur);
+        bankRepository.save(beDebiteur);
+    }
+
     public BankEntity searchBankWithPersonId(final Long id) {
-        BankEntity bankEntity = bankRepository.findByPerson_Id(id).orElseThrow(() -> new NoSuchElementException(""));
-        return bankEntity;
+        return bankRepository.findByPerson_Id(id).orElseThrow(() -> new NoSuchElementException(""));
     }
 
 }

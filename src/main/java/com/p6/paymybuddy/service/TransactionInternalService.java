@@ -33,7 +33,7 @@ public class TransactionInternalService {
     private PersonRepository personRepository;
 
     @Autowired
-    private BankRepository bankRepository;
+    private BankService bankService;
 
     @Autowired
     private CommissionService commissionService;
@@ -60,7 +60,7 @@ public class TransactionInternalService {
         PersonEntity peCrediteur = personRepository.findById(transactionInternalRequest.getCrediteur()).orElseThrow(() -> new NoSuchElementException("Id Crediteur : " + transactionInternalRequest.getCrediteur() + " not found"));
         PersonEntity peDebiteur  = personRepository.findById(transactionInternalRequest.getDebiteur()).orElseThrow(()  -> new NoSuchElementException("Id Debiteur : "  + transactionInternalRequest.getDebiteur()  + " not found"));
 
-        this.bankTransaction(peCrediteur,peDebiteur,transactionInternalRequest.getAmount());
+        this.bankService.bankTransaction(peCrediteur,peDebiteur,transactionInternalRequest.getAmount(), transactionInternalRequest.getDescription());
         TransactionInternalEntity transactionInternalEntity = this.createTransactionInternal(transactionInternalRequest, peCrediteur, peDebiteur);
         this.commissionService.processCommission(transactionInternalEntity.getId(), peCrediteur);
 
@@ -81,16 +81,7 @@ public class TransactionInternalService {
         transactionInternalEntity = transactionInternalRepository.save(transactionInternalEntity);
         return transactionInternalEntity;
     }
-    private void bankTransaction(PersonEntity crediteur, PersonEntity debiteur, Double amount) {
-        BankEntity beCrediteur = crediteur.getBank();
-        BankEntity beDebiteur  = debiteur.getBank();
 
-        beCrediteur.setAmount(beCrediteur.getAmount() - amount);
-        beDebiteur.setAmount (beDebiteur.getAmount()  + amount);
-
-        bankRepository.save(beCrediteur);
-        bankRepository.save(beDebiteur);
-    }
 
     public TransactionInternal updateTransactionInternal(final Long id, TransactionInternalRequest transactionInternalRequest) {
 

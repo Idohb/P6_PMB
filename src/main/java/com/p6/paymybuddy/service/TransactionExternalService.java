@@ -2,6 +2,7 @@ package com.p6.paymybuddy.service;
 
 import com.p6.paymybuddy.controller.dto.transactionExternal.TransactionExternalRequest;
 import com.p6.paymybuddy.mapper.TransactionExternalConverter;
+import com.p6.paymybuddy.model.entity.BankEntity;
 import com.p6.paymybuddy.model.entity.PersonEntity;
 import com.p6.paymybuddy.model.entity.TransactionExternalEntity;
 import com.p6.paymybuddy.model.repository.BankRepository;
@@ -81,5 +82,17 @@ public class TransactionExternalService {
         if (transactionExternalRequest.getTimeTransaction() != null)
             transactionExternalEntity.setTimeTransaction(transactionExternalRequest.getTimeTransaction());
 
+    }
+
+    public void processTransactionExternal(Double amount, String description, PersonEntity crediteur) {
+        LocalDateTime date = LocalDateTime.now();
+        TransactionExternalEntity transactionExternalEntity = new TransactionExternalEntity(
+                0L,
+                description,
+                amount,
+                date.toString(),
+                crediteur
+        );
+        transactionExternalRepository.save(transactionExternalEntity);
     }
 }
