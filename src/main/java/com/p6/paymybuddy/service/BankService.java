@@ -63,7 +63,8 @@ public class BankService {
 
         beCrediteur.setAmount(beCrediteur.getAmount() - amount);
         beDebiteur.setAmount (beDebiteur.getAmount()  + amount);
-        this.transactionExternalService.processTransactionExternal(amount, description, crediteur);
+        this.transactionExternalService.processTransactionExternal(-amount, description, crediteur);
+        this.transactionExternalService.processTransactionExternal(amount, description, debiteur);
         bankRepository.save(beCrediteur);
         bankRepository.save(beDebiteur);
     }

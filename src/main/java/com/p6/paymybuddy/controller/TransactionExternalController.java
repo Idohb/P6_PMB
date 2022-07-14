@@ -39,7 +39,18 @@ public class TransactionExternalController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+    //findByUser
+    @GetMapping("transactionExternalByUser/{id}")
+    public ResponseEntity<List<TransactionExternal>> getTransactionExternalByUser(@PathVariable("id") final Long id) {
+        try {
+            log.info("ok");
+            return ResponseEntity.ok(transactionExternalService.getTransactionExternalByUser(id));
+        } catch (NoSuchElementException e) {
+            log.info("error");
+            return ResponseEntity.notFound().build();
+        }
+    }
+
         @PostMapping("transactionExternal")
         public ResponseEntity<TransactionExternal> createTransactionExternal(@RequestBody TransactionExternalRequest transactionExternal) {
             try {

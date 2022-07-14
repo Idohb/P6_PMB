@@ -1,1 +1,14 @@
-<p>transaction-external works!</p>
+<table class="table bg-white table-bordered">
+  <thead>
+  <tr>
+    <th > Transaction Amount </th>
+    <th > Description </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr id="TransactionConnection" *ngFor="let transaction of transactionExternalRequest">
+    <th>{{transaction.amount}}</th>
+    <th>{{transaction.description}}</th>
+  </tr>
+  </tbody>
+</table>

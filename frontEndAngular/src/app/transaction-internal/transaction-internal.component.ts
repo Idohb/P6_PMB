@@ -3,6 +3,7 @@ import {TransactionInternalRequest, TransactionInternal} from "./transactionInte
 import {TransactionInternalService} from "./transaction-internal.service";
 import {Person} from "../person/Person";
 import {LoginService} from "../login-component/login/login.service";
+import {TransactionExternalService} from "../transaction-external/transaction-external.service";
 
 @Component({
   selector: 'app-transaction-internal',
@@ -45,11 +46,14 @@ export class TransactionInternalComponent implements OnInit {
   private email :string ="";
   private debiteurId: number= 0;
 
+
   constructor(private transactionInternalService: TransactionInternalService,
+              private transactionExternalService: TransactionExternalService,
               private loginService:LoginService) { }
 
   ngOnInit(): void {
     this.getTransactions();
+    this.transactionExternalService.getTransactionExternal();
     this.getFriends();
   }
 
@@ -86,6 +90,7 @@ export class TransactionInternalComponent implements OnInit {
     this.transactionInternalService.setAmount(payForm).subscribe( {
       next:() => {
         this.getTransactions();
+        this.transactionExternalService.getTransactionExternal();
       },
       error:() => {
         console.info("error ");

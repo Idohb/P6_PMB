@@ -9,6 +9,7 @@ import com.p6.paymybuddy.model.repository.BankRepository;
 import com.p6.paymybuddy.model.repository.PersonRepository;
 import com.p6.paymybuddy.model.repository.TransactionExternalRepository;
 import com.p6.paymybuddy.service.data.TransactionExternal;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,15 +85,23 @@ public class TransactionExternalService {
 
     }
 
-    public void processTransactionExternal(Double amount, String description, PersonEntity crediteur) {
+    public void processTransactionExternal(Double amount, String description, PersonEntity pe) {
         LocalDateTime date = LocalDateTime.now();
         TransactionExternalEntity transactionExternalEntity = new TransactionExternalEntity(
                 0L,
                 description,
                 amount,
                 date.toString(),
-                crediteur
+                pe
         );
         transactionExternalRepository.save(transactionExternalEntity);
+    }
+
+    public List<TransactionExternal> getTransactionExternalByUser(final Long id) {
+        PersonEntity crediteur = personRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Person id " + id + " not found"));
+        List<TransactionExternalEntity> transactionExternalEntity = transactionExternalRepository.findByUser(crediteur)
+                .orElseThrow(() -> new NoSuchElementException("Id " + id + " not found"));
+        return transactionExternalConverter.mapperTransactionExternal(transactionExternalEntity);
     }
 }
