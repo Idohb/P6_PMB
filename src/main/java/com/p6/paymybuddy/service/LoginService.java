@@ -8,6 +8,7 @@ import com.p6.paymybuddy.service.data.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -79,6 +80,16 @@ public class LoginService {
     public Login searchEmail(String email, Long crediteur) {
         Login res = loginConverter.mapperLogin(loginRepository.findByEmail(email).orElseThrow( () -> new NoSuchElementException("") ));
         personService.setFriends(crediteur, res.getId());
+        return res;
+    }
+
+    public Login getAuthLogin(String name) {
+        byte[] decodedBytes = Base64.getDecoder().decode(name);
+        String decodeName = new String(decodedBytes);
+        String[] emailAndPassword = decodeName.split(":");
+        System.out.println(emailAndPassword[0]);
+        System.out.println(emailAndPassword[1]);
+        Login res = loginConverter.mapperLogin(loginRepository.findByEmailAndPassword(emailAndPassword[0], emailAndPassword[1]).orElseThrow( () -> new NoSuchElementException("") ));
         return res;
     }
 }

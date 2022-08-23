@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Login} from "./login";
 import {LoginService} from "./login.service";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "./auth.service";
 
 
 @Component({
@@ -23,7 +24,19 @@ export class LoginComponent implements OnInit {
   @Input() loginStatus: string = "false";
   @Input() id : number = 0;
 
-  constructor(private loginService: LoginService, private router : Router) {}
+
+  username: string ="";
+  password : string="";
+  errorMessage = 'Invalid Credentials';
+  successMessage: string="";
+  invalidLogin = false;
+  loginSuccess = false;
+
+
+
+  constructor(private loginService: LoginService,
+              private router : Router,
+              private authenticationService: AuthenticationService) {}
 
   ngOnInit(): void {
     this.loginStatus = "false";
@@ -51,7 +64,37 @@ export class LoginComponent implements OnInit {
 
   }
 
-  getStatus() {
+  onToggleLoginsCheckWithSecurity() {
+     // this.authenticationService.authenticationService(this.username, this.password).subscribe({
+     //   next: (data) => {
+     //     this.invalidLogin = false;
+     //     this.loginSuccess = true;
+     //     this.successMessage = 'Login Successful.';
+     //     // this.loginService.setUserId(data.id)
+     //     this.router.navigate(['/person'/*+ data.id*/]);
+     //   },
+     //   error: () => {
+     //     this.invalidLogin = true;
+     //     this.loginSuccess = false;
+     //   },
+     //   complete: () => console.info('complete')
+     // });
+
+    this.authenticationService.authenticationService(this.username, this.password).subscribe(()=> {
+       this.invalidLogin = false;
+       this.loginSuccess = true;
+       this.successMessage = 'Login Successful.';
+       this.router.navigate(['/person']);
+     }, () => {
+       this.invalidLogin = true;
+       this.loginSuccess = false;
+     });
+
+  }
+
+
+
+    getStatus() {
     return this.loginStatus;
   }
 

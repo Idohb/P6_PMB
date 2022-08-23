@@ -10,6 +10,7 @@ import { RouterModule, Routes} from "@angular/router";
 import { PersonComponent } from './person/person.component';
 import { TransactionInternalComponent } from './transaction-internal/transaction-internal.component';
 import { TransactionExternalComponent } from './transaction-external/transaction-external.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
     PersonComponent,
     TransactionInternalComponent,
     TransactionExternalComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

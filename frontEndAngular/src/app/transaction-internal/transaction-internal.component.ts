@@ -87,15 +87,18 @@ export class TransactionInternalComponent implements OnInit {
     payForm.description = payForm.amount + " euros";
     console.log(payForm.debiteur);
 
+    //TODO : est ce que le subscribe est utile ? + regarde la manipulation de données localstorage ou cookies
     this.transactionInternalService.setAmount(payForm).subscribe( {
       next:() => {
         this.getTransactions();
         this.transactionExternalService.getTransactionExternal();
+
       },
       error:() => {
         console.info("error ");
       }
     });
+
   }
 
   public onOpenModalToAddFriends(person: Person|null, mode: string): void {

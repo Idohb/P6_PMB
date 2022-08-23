@@ -8,13 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
     private final LoginService loginService;
+
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
 
     @Autowired
     public LoginController(LoginService loginService) {
@@ -88,6 +93,16 @@ public class LoginController {
         try {
             return ResponseEntity.ok(loginService.searchEmail(emailLogin,crediteur));
         } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @RequestMapping("greeting")
+//    @RolesAllowed("USER")
+    public ResponseEntity<Login> login(@RequestParam("name") final String name) {
+        try {
+            return ResponseEntity.ok(loginService.getAuthLogin(name));
+        } catch (NoSuchElementException e){
             return ResponseEntity.notFound().build();
         }
     }
