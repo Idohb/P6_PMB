@@ -87,7 +87,6 @@ export class LoginComponent implements OnInit {
       this.successMessage = 'Login Successful.';
       this.authenticationService.setUserId(data.id);
       this.loginForm.user_id = data.id;
-      console.log(data.id);
       this.router.navigate(['person/' + data.id]);
      }, () => {
        this.invalidLogin = true;

@@ -5,7 +5,6 @@ import {Person} from "../person/Person";
 import {LoginService} from "../login-component/login/login.service";
 import {TransactionExternalService} from "../transaction-external/transaction-external.service";
 import {AuthenticationService} from "../login-component/login/auth.service";
-import {TransactionExternalComponent} from "../transaction-external/transaction-external.component";
 import {TransactionExternal} from "../transaction-external/transactionExternal";
 
 @Component({
@@ -52,7 +51,6 @@ export class TransactionInternalComponent implements OnInit {
 
   constructor(private transactionInternalService: TransactionInternalService,
               private transactionExternalService: TransactionExternalService,
-              private transactionExternalComponent : TransactionExternalComponent,
               private loginService:LoginService,
               private authenticationService : AuthenticationService) { }
 
