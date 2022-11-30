@@ -4,6 +4,7 @@ package com.p6.paymybuddy.controller;
 import com.p6.paymybuddy.controller.dto.login.LoginRequest;
 import com.p6.paymybuddy.service.data.Login;
 import com.p6.paymybuddy.service.LoginService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@Slf4j
 public class LoginController {
     private final LoginService loginService;
 
@@ -101,8 +103,10 @@ public class LoginController {
 //    @RolesAllowed("USER")
     public ResponseEntity<Login> login(@RequestParam("name") final String name) {
         try {
+            log.info("OK");
             return ResponseEntity.ok(loginService.getAuthLogin(name));
         } catch (NoSuchElementException e){
+            log.info("error");
             return ResponseEntity.notFound().build();
         }
     }

@@ -80,11 +80,15 @@ export class LoginComponent implements OnInit {
      //   complete: () => console.info('complete')
      // });
 
-    this.authenticationService.authenticationService(this.username, this.password).subscribe(()=> {
-       this.invalidLogin = false;
-       this.loginSuccess = true;
-       this.successMessage = 'Login Successful.';
-       this.router.navigate(['/person']);
+    this.authenticationService.authenticationService(/*this.username, this.password*/this.loginForm ).subscribe((data:Login)=> {
+      this.invalidLogin = false;
+      this.loginSuccess = true;
+      this.loginStatus = "true";
+      this.successMessage = 'Login Successful.';
+      this.authenticationService.setUserId(data.id);
+      this.loginForm.user_id = data.id;
+      console.log(data.id);
+      this.router.navigate(['person/' + data.id]);
      }, () => {
        this.invalidLogin = true;
        this.loginSuccess = false;

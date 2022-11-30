@@ -17,6 +17,7 @@ export class AuthenticationService {
   private _username: string ="";
   private _password: string ="";
   private _test: string ="";
+  private userId : number = 0;
 
   get username(): string {
     return this._username;
@@ -38,13 +39,23 @@ export class AuthenticationService {
 
   }
 
-
-
-  public authenticationService(username: string, password: string) : Observable<Login>{
-    var test = this.createBasicAuthToken(username, password);
-    return this.http.get<Login>(this.apiServerUrl + "greeting?name=" + test);
-    // return this.http.get(`http://localhost:8080/greeting?name=`+ test);
+  public setUserId(id : number) {
+    this.userId = id;
   }
+
+  public getUserId() {
+    return this.userId;
+  }
+
+  public authenticationService(login:Login) : Observable<Login>{
+    var test = this.createBasicAuthToken(login.email, login.password);
+    return this.http.get<Login>(this.apiServerUrl + "greeting?name=" + test);
+  }
+
+  // public authenticationService(username: string, password: string) : Observable<Login>{
+  //   var test = this.createBasicAuthToken(username, password);
+  //   return this.http.get<Login>(this.apiServerUrl + "greeting?name=" + test);
+  // }
 
   createBasicAuthToken(username: string, password: string) {
     var stringstring = window.btoa(username + ":" + password)

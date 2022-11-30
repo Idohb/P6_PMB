@@ -33,12 +33,12 @@
         <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
         <div class="form-group">
           <label for="email">User Name :</label>
-          <input type="text" class="form-control" id="email" [(ngModel)]="username" placeholder="Enter User Name"
+          <input type="text" class="form-control" id="email" [(ngModel)]="loginForm.email" placeholder="Enter User Name"
                  name="username">
         </div>
         <div class="form-group">
           <label for="pwd">Password:</label>
-          <input type="password" class="form-control" [(ngModel)]="password" id="pwd" placeholder="Enter password"
+          <input type="password" class="form-control" [(ngModel)]="loginForm.password" id="pwd" placeholder="Enter password"
                  name="password">
         </div>
         <button (click)=onToggleLoginsCheckWithSecurity() class="btn btn-success">Login</button>

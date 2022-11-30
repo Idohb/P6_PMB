@@ -7,6 +7,7 @@ import {LoginService} from "../login-component/login/login.service";
 import {PersonService} from "../person/person.service";
 import {Person} from "../person/Person";
 import {Login} from "../login-component/login/login";
+import {AuthenticationService} from "../login-component/login/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class TransactionInternalService {
 
   constructor(private http:HttpClient,
               private personService : PersonService,
-              private loginService : LoginService) { }
+              private loginService : LoginService,
+              private authenticationService: AuthenticationService) { }
 
 
 
@@ -26,11 +28,12 @@ export class TransactionInternalService {
   //   return this.http.get<TransactionInternal[]>("http://localhost:8080/transactionInternalByCrediteur/" + this.loginService.getUserId());
   // }
   public getTransactionInternal() : Observable<TransactionInternalRequest[]>{
-    return this.http.get<TransactionInternalRequest[]>(this.apiServerUrl + "transactionInternalByCrediteur/" + this.loginService.getUserId());
+    console.log("here");
+    return this.http.get<TransactionInternalRequest[]>(this.apiServerUrl + "transactionInternalByCrediteur/" + this.authenticationService.getUserId());
   }
 
   public searchPersonConnection(personConnection : string) : Observable<Login> {
-    return this.http.get<Login>(this.apiServerUrl + "loginSearch?emailLogin="+ personConnection + "&crediteur=" + this.loginService.getUserId());
+    return this.http.get<Login>(this.apiServerUrl + "loginSearch?emailLogin="+ personConnection + "&crediteur=" + this.authenticationService.getUserId());
   }
 
   public addPersonConnection(crediteur : number, debiteur : number) : Observable<Person>{
@@ -42,6 +45,6 @@ export class TransactionInternalService {
   }
 
   public getFriends() : Observable<Person[]>{
-    return this.http.get<Person[]>(this.apiServerUrl + "friends/" + this.loginService.getUserId());
+    return this.http.get<Person[]>(this.apiServerUrl + "friends/" + this.authenticationService.getUserId());
   }
 }

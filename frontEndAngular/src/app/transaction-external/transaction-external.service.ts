@@ -7,6 +7,7 @@ import {TransactionExternalRequest, TransactionExternal} from "./transactionExte
 import {Observable} from "rxjs";
 import {Login} from "../login-component/login/login";
 import {Person} from "../person/Person";
+import {AuthenticationService} from "../login-component/login/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +16,15 @@ export class TransactionExternalService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http:HttpClient,
               private personService : PersonService,
-              private loginService : LoginService) { }
+              private loginService : LoginService,
+              private authenticationService : AuthenticationService) { }
 
   public getTransactionExternal(): Observable<TransactionExternalRequest[]> {
-    return this.http.get<TransactionExternalRequest[]>(this.apiServerUrl + "transactionExternalByUser/" + this.loginService.getUserId());
+    return this.http.get<TransactionExternalRequest[]>(this.apiServerUrl + "transactionExternalByUser/" + this.authenticationService.getUserId());
   }
 
   public searchPersonConnection(personConnection : string) : Observable<Login> {
-    return this.http.get<Login>(this.apiServerUrl + "loginSearch?emailLogin="+ personConnection + "&crediteur=" + this.loginService.getUserId());
+    return this.http.get<Login>(this.apiServerUrl + "loginSearch?emailLogin="+ personConnection + "&crediteur=" + this.authenticationService.getUserId());
   }
 
   public addPersonConnection(crediteur : number, debiteur : number) : Observable<Person>{

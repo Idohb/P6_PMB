@@ -4,6 +4,9 @@ import {TransactionInternalService} from "./transaction-internal.service";
 import {Person} from "../person/Person";
 import {LoginService} from "../login-component/login/login.service";
 import {TransactionExternalService} from "../transaction-external/transaction-external.service";
+import {AuthenticationService} from "../login-component/login/auth.service";
+import {TransactionExternalComponent} from "../transaction-external/transaction-external.component";
+import {TransactionExternal} from "../transaction-external/transactionExternal";
 
 @Component({
   selector: 'app-transaction-internal',
@@ -49,7 +52,9 @@ export class TransactionInternalComponent implements OnInit {
 
   constructor(private transactionInternalService: TransactionInternalService,
               private transactionExternalService: TransactionExternalService,
-              private loginService:LoginService) { }
+              private transactionExternalComponent : TransactionExternalComponent,
+              private loginService:LoginService,
+              private authenticationService : AuthenticationService) { }
 
   ngOnInit(): void {
     this.getTransactions();
@@ -83,7 +88,7 @@ export class TransactionInternalComponent implements OnInit {
 
 
   public clickToPay(payForm: TransactionInternal) : void {
-    payForm.crediteur = this.loginService.getUserId();
+    payForm.crediteur = this.authenticationService.getUserId();
     payForm.description = payForm.amount + " euros";
     console.log(payForm.debiteur);
 
